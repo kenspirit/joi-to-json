@@ -19,5 +19,6 @@ module.exports = joi.object().keys({
   ).required()).min(1).max(3).unique().description('Skills'),
   tags: joi.array().items(joi.string().required()).length(2),
   retired: joi.boolean().truthy('yes').falsy('no').sensitive(false),
-  certificate: joi.binary().encoding('base64')
+  certificate: joi.binary().encoding('base64'),
+  notes: joi.any()
 })

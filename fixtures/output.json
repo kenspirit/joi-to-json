@@ -111,6 +111,16 @@
       "type": "string",
       "contentEncoding": "base64",
       "format": "binary"
+    },
+    "notes": {
+      "type": [
+        "array",
+        "boolean",
+        "number",
+        "object",
+        "string",
+        "null"
+      ]
     }
   },
   "required": [
