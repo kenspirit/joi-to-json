@@ -19,6 +19,9 @@
       "type": "string",
       "format": "email"
     },
+    "facebookId": {
+      "type": ["string", "null"]
+    },
     "ip": {
       "type": "string",
       "oneOf": [
