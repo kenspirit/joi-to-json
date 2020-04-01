@@ -20,5 +20,6 @@ module.exports = joi.object().keys({
   tags: joi.array().items(joi.string().required()).length(2),
   retired: joi.boolean().truthy('yes').falsy('no').sensitive(false),
   certificate: joi.binary().encoding('base64'),
-  notes: joi.any()
+  notes: joi.any(),
+  facebookId: joi.string().allow(null)
 })
