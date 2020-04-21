@@ -30,7 +30,8 @@ module.exports = joi.object().keys({
   notes: joi.any(),
   facebookId: joi.string().allow(null),
   meta: joiRequired.object().keys({
-    hash: joiRequired.string()
+    hash: joiRequired.string(),
+    optional: joiRequired.string().optional()
   }),
   nested: joiAllowUnknown.object().keys({
     key: joiAllowUnknown.string()

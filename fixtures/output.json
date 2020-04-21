@@ -133,6 +133,9 @@
       "properties": {
         "hash": {
           "type": "string"
+        },
+        "optional": {
+          "type": "string"
         }
       },
       "type": "object",
