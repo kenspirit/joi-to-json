@@ -1,5 +1,9 @@
 const joi = require('joi-12')
 
+const joiStrict = joi.defaults((schema) => schema.options({
+  presence: 'required'
+}));
+
 module.exports = joi.object().keys({
   nickName: joi.string().required().example('鹄思乱想').description('Hero Nickname').min(3).max(20).regex(/^[a-z]+$/, { name: 'alpha', invert: true }),
   avatar: joi.string().required().uri(),
@@ -21,5 +25,8 @@ module.exports = joi.object().keys({
   retired: joi.boolean().truthy('yes').falsy('no').insensitive(false),
   certificate: joi.binary().encoding('base64'),
   notes: joi.any(),
-  facebookId: joi.string().allow(null)
+  facebookId: joi.string().allow(null),
+  meta: joiStrict.object().keys({
+    hash: joiStrict.string()
+  })
 })

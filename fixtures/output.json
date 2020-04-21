@@ -20,7 +20,10 @@
       "format": "email"
     },
     "facebookId": {
-      "type": ["string", "null"]
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "ip": {
       "type": "string",
@@ -124,10 +127,22 @@
         "string",
         "null"
       ]
+    },
+    "meta": {
+      "properties": {
+        "hash": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": [
+        "hash"
+      ]
     }
   },
   "required": [
     "nickName",
-    "avatar"
+    "avatar",
+    "meta"
   ]
 }
