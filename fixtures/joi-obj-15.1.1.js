@@ -1,8 +1,11 @@
 const joi = require('joi-15')
 
-const joiStrict = joi.defaults((schema) => schema.options({
+const joiRequired = joi.defaults((schema) => schema.options({
   presence: 'required'
-}));
+}))
+const joiAllowUnknown = joi.defaults((schema) => schema.options({
+  allowUnknown: true
+}))
 
 module.exports = joi.object().keys({
   nickName: joi.string().required().example('鹄思乱想').description('Hero Nickname').min(3).max(20).regex(/^[a-z]+$/, { name: 'alpha', invert: true }),
@@ -19,14 +22,17 @@ module.exports = joi.object().keys({
     joi.object().keys({
       name: joi.string().example(['teleport', { parent: { sibling: 10 } }]).alphanum().description('Skill Name').lowercase().required(),
       level: joi.number().integer().min(10).max(100).default(50).multiple(10).example(10).description('Skill Level')
-    })
+    }).unknown(true)
   ).required()).min(1).max(3).unique().description('Skills'),
   tags: joi.array().items(joi.string().required()).length(2),
   retired: joi.boolean().truthy('yes').falsy('no').insensitive(false),
   certificate: joi.binary().encoding('base64'),
   notes: joi.any(),
   facebookId: joi.string().allow(null),
-  meta: joiStrict.object().keys({
-    hash: joiStrict.string()
+  meta: joiRequired.object().keys({
+    hash: joiRequired.string()
+  }),
+  nested: joiAllowUnknown.object().keys({
+    key: joiAllowUnknown.string()
   })
 })

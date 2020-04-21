@@ -97,7 +97,8 @@
             },
             "required": [
               "name"
-            ]
+            ],
+            "additionalProperties": true
           }
         ]
       }
@@ -137,12 +138,23 @@
       "type": "object",
       "required": [
         "hash"
-      ]
+      ],
+      "additionalProperties": false
+    },
+    "nested": {
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "additionalProperties": true
     }
   },
   "required": [
     "nickName",
     "avatar",
     "meta"
-  ]
+  ],
+  "additionalProperties": false
 }
