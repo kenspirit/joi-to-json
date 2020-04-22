@@ -20,7 +20,10 @@
       "format": "email"
     },
     "facebookId": {
-      "type": ["string", "null"]
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "ip": {
       "type": "string",
@@ -94,7 +97,8 @@
             },
             "required": [
               "name"
-            ]
+            ],
+            "additionalProperties": true
           }
         ]
       }
@@ -124,10 +128,36 @@
         "string",
         "null"
       ]
+    },
+    "meta": {
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": [
+        "hash"
+      ],
+      "additionalProperties": false
+    },
+    "nested": {
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "additionalProperties": true
     }
   },
   "required": [
     "nickName",
-    "avatar"
-  ]
+    "avatar",
+    "meta"
+  ],
+  "additionalProperties": false
 }
