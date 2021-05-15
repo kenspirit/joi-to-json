@@ -35,5 +35,22 @@ module.exports = joi.object().keys({
   }),
   nested: joiAllowUnknown.object().keys({
     key: joi.string()
-  })
+  }),
+  dynamicKeyHolder: joi
+    .object()
+    .pattern(/s/, joi.object().keys({
+      id: joi
+        .number()
+        .description('Tbe ID for the reference')
+        .example(123)
+        .required(),
+      name: joi
+        .string()
+        .allow('', null)
+        .description('Name of something')
+        .example('Jack')
+        .required()
+    }))
+    .description('Some kind of list')
+    .optional()
 })
