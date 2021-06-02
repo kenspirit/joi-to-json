@@ -10,6 +10,7 @@ const joiAllowUnknown = joi.defaults((schema) => schema.options({
 module.exports = joi.object().keys({
   nickName: joi.string().required().example('鹄思乱想').description('Hero Nickname').min(3).max(20).pattern(/^[a-z]+$/, { name: 'alpha', invert: true }),
   avatar: joi.string().required().uri(),
+  password: joi.forbidden(),
   email: joi.string().email(),
   ip: joi.string().ip({ version: ['ipv4', 'ipv6'] }),
   hostname: joi.string().hostname().insensitive(),
