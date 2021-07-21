@@ -51,12 +51,44 @@
         "Female"
       ]
     },
+    "genderSpecific": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
     "height": {
       "type": "number",
       "exclusiveMinimum": true,
       "minimum": 0,
       "exclusiveMaximum": true,
       "maximum": 200
+    },
+    "heightRank": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "level": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      ]
     },
     "birthday": {
       "type": "string",
@@ -167,15 +199,25 @@
             "id": {
               "type": "number",
               "description": "Tbe ID for the reference",
-              "examples": [123]
+              "examples": [
+                123
+              ]
             },
             "name": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "description": "Name of something",
-              "examples": ["Jack"]
+              "examples": [
+                "Jack"
+              ]
             }
           },
-          "required": ["id", "name"]
+          "required": [
+            "id",
+            "name"
+          ]
         }
       }
     }

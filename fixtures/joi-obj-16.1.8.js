@@ -15,7 +15,19 @@ module.exports = joi.object().keys({
   ip: joi.string().ip({ version: ['ipv4', 'ipv6'] }),
   hostname: joi.string().hostname().insensitive(),
   gender: joi.string().valid('Male', 'Female', '').default('Male'),
+  genderSpecific: joi.when('gender', {
+    is: 'Female',
+    then: joi.number().required(),
+    otherwise: joi.string()
+  }),
   height: joi.number().precision(2).positive().greater(0).less(200),
+  heightRank: joi.alternatives().conditional('height', {
+    switch: [
+      { is: 0, then: joi.string() },
+      { is: joi.number().greater(160), then: joi.number() },
+      { is: joi.number().greater(300), then: joi.object().keys({ name: joi.string(), level: joi.number() }) }
+    ]
+  }),
   birthday: joi.date().iso(),
   birthTime: joi.date().timestamp('unix'),
   skills: joi.array().items(joi.alternatives().try(

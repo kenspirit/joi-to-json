@@ -1,0 +1,231 @@
+{
+  "type": "object",
+  "properties": {
+    "nickName": {
+      "type": "string",
+      "examples": [
+        "鹄思乱想"
+      ],
+      "description": "Hero Nickname",
+      "minLength": 3,
+      "maxLength": 20,
+      "pattern": "^[a-z]+$"
+    },
+    "avatar": {
+      "type": "string",
+      "format": "uri"
+    },
+    "password": {
+      "not": {}
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "facebookId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ip": {
+      "type": "string",
+      "oneOf": [
+        {
+          "format": "ipv4"
+        },
+        {
+          "format": "ipv6"
+        }
+      ]
+    },
+    "hostname": {
+      "type": "string",
+      "format": "hostname"
+    },
+    "gender": {
+      "type": "string",
+      "default": "Male",
+      "enum": [
+        "Male",
+        "Female"
+      ]
+    },
+    "genderSpecific": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "height": {
+      "type": "number",
+      "exclusiveMinimum": true,
+      "minimum": 0,
+      "exclusiveMaximum": true,
+      "maximum": 200
+    },
+    "heightRank": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "level": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "birthTime": {
+      "type": "integer"
+    },
+    "skills": {
+      "type": "array",
+      "description": "Skills",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "examples": [
+                  "teleport"
+                ],
+                "description": "Skill Name"
+              },
+              "level": {
+                "type": "integer",
+                "examples": [
+                  10
+                ],
+                "description": "Skill Level",
+                "default": 50,
+                "minimum": 10,
+                "maximum": 100,
+                "multipleOf": 10
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": true
+          }
+        ]
+      }
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    },
+    "retired": {
+      "type": "boolean"
+    },
+    "certificate": {
+      "type": "string",
+      "contentEncoding": "base64",
+      "format": "binary"
+    },
+    "notes": {
+      "type": [
+        "array",
+        "boolean",
+        "number",
+        "object",
+        "string",
+        "null"
+      ]
+    },
+    "meta": {
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "required": [
+        "hash"
+      ],
+      "additionalProperties": false
+    },
+    "nested": {
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "additionalProperties": true
+    },
+    "dynamicKeyHolder": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Some kind of list",
+      "properties": {
+        "/s/": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Tbe ID for the reference",
+              "examples": [
+                123
+              ]
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Name of something",
+              "examples": [
+                "Jack"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "nickName",
+    "avatar",
+    "meta"
+  ],
+  "additionalProperties": false
+}
