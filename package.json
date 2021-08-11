@@ -1,6 +1,6 @@
 {
   "name": "joi-to-json",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "joi to JSON Schema Converter",
   "main": "index.js",
   "repository": {

@@ -1,6 +1,14 @@
 {
   "type": "object",
   "properties": {
+    "guid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
     "nickName": {
       "type": "string",
       "examples": [
@@ -67,6 +75,10 @@
       "minimum": 0,
       "exclusiveMaximum": true,
       "maximum": 200
+    },
+    "isoDateString": {
+      "type": "string",
+      "format": "date-time"
     },
     "birthday": {
       "type": "string",

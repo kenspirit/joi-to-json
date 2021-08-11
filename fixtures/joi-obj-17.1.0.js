@@ -8,6 +8,8 @@ const joiAllowUnknown = joi.defaults((schema) => schema.options({
 }))
 
 module.exports = joi.object().keys({
+  guid: joi.string().guid({ version: ['uuidv2', 'uuidv4'] }),
+  uuid: joi.string().uuid({ version: ['uuidv3', 'uuidv5'] }),
   nickName: joi.string().required().example('鹄思乱想').description('Hero Nickname').min(3).max(20).pattern(/^[a-z]+$/, { name: 'alpha', invert: true }),
   avatar: joi.string().required().uri(),
   password: joi.forbidden(),
@@ -28,6 +30,8 @@ module.exports = joi.object().keys({
       { is: joi.number().greater(300), then: joi.object().keys({ name: joi.string(), level: joi.number() }) }
     ]
   }),
+  isoDateString: joi.string().isoDate(),
+  isoDurationString: joi.string().isoDuration(),
   birthday: joi.date().iso(),
   birthTime: joi.date().timestamp('unix'),
   skills: joi.array().items(joi.alternatives().try(

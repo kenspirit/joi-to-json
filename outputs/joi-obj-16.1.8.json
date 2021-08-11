@@ -1,6 +1,14 @@
 {
   "type": "object",
   "properties": {
+    "guid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
     "nickName": {
       "type": "string",
       "examples": [
@@ -89,6 +97,14 @@
           "type": "object"
         }
       ]
+    },
+    "isoDateString": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "isoDurationString": {
+      "type": "string",
+      "format": "duration"
     },
     "birthday": {
       "type": "string",
