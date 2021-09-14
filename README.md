@@ -8,10 +8,23 @@ It's **The most powerful schema description language and data validator for Java
 Many times, we need to utilize this schema description to produce other output, such as Swagger OpenAPI doc.
 That is why I build [joi-route-to-swagger](https://github.com/kenspirit/joi-route-to-swagger) in the first place.
 
-At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  I believed there was reason.  Maybe joi did not provide the `describe` api way before.  But I always feel not comfortable and think it's time to move on.
+At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  I believed there was reason.  Maybe joi did not provide the `describe` api way before.  But I always feel uncomfortable and think it's time to move on.
 
 The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema (draft-04)](https://json-schema.org/specification-links.html#draft-4) using `describe` api.
 
+## 2.0.0 is out
+
+It's a breaking change.
+
+* Functionally, output format supports OpenAPI Schema other than purely JSON Schema.  
+
+* Technically, implementation theory has a big change:
+  - In v1.0.0, it directly converts `joi.describe()` to JSON schema using different parser implementations.
+  - In v2.0.0, `joi.describe()` of different versions are first converted to one base format, the latest version of `joi.describe()` output.  Then different parsers (JSON, OpenAPI) all refer to this base format.
+
+* The benefits of the change are:
+  - Easier to retire old version of joi.
+  - Easier to support more output formats.
 
 ## Installation
 
@@ -30,19 +43,23 @@ The intention of `joi-to-json` is to support converting different version's joi 
   * 16.1.8
   * 17.1.0
 
-For all above version, I have tested one complex joi object [fixtures](./fixtures) which covers most of the JSON schema attributes that can be described in joi schema.
+For all above versions, I have tested one complex joi object [fixtures](./fixtures) which covers most of the JSON schema attributes that can be described in joi schema.
 
 Although the versions chosen are the latest one for each major version, I believe it should be supporting other minor version as well.
 
 
 ## Usage
 
-Only one API `convert` is available.
+Only one API `parse` is available.  It's signature is `parse(joiObj, type = 'json')`
 
-You can optionally provide debug flag `true` as the second argument to check which version of the parser is chosen and the joi schema describe output
+Currently supported output types are `json` and `open-api`.  
+
+The output schema format are in [outputs](./outputs) under specific folders for different types.
+
+Sample code is as below:  
 
 ```javascript
-const convert = require('joi-to-json')
+const parse = require('joi-to-json')
 
 const joiSchema = joi.object().keys({
   nickName: joi.string().required().min(3).max(20).example('鹄思乱想').description('Hero Nickname')
@@ -67,10 +84,10 @@ const joiSchema = joi.object().keys({
   certificate: joi.binary().encoding('base64')
 })
 
-const jsonSchema = convert(joiSchema, true)
+const jsonSchema = parse(joiSchema)
+// Or parsing to OpenAPI schema through:
+// const openApiSchema = parse(joiSchema, 'open-api')
 ```
-
-The output json format is [here](./output.json)
 
 ## Test
 
@@ -79,8 +96,6 @@ The output json format is [here](./output.json)
 You can optionally set below environment variables:
 
 * `CASE_PATTERN=joi-obj-12` to control which version of joi obj to test
-* `DEBUG=true` to check which version of the parser is chosen and the joi schema describe output
-
 
 ## License
 
