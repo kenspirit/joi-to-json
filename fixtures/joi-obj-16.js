@@ -1,4 +1,4 @@
-const joi = require('joi-17')
+const joi = require('joi-16')
 
 const joiRequired = joi.defaults((schema) => schema.options({
   presence: 'required'
@@ -44,7 +44,7 @@ module.exports = joi.object().keys({
   tags: joi.array().items(joi.string().required()).length(2),
   retired: joi.boolean().truthy('yes').falsy('no').sensitive(false),
   certificate: joi.binary().encoding('base64'),
-  notes: joi.any().meta({ 'x-supported-lang': ['zh-CN', 'en-US'] }),
+  notes: joi.any().meta({ 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true }),
   facebookId: joi.string().allow(null),
   meta: joiRequired.object().keys({
     hash: joiRequired.string(),

@@ -1,15 +1,9 @@
 const _ = require('lodash')
 const fs = require('fs')
-const Validator = require('jsonschema').Validator
+const Ajv = require('ajv')
 const parse = require('../index')
 
-function executeTests(outputType, jsonSchema) {
-  const v = new Validator()
-
-  if (!!jsonSchema) {
-    v.addSchema(jsonSchema)
-  }
-
+function executeTests(outputType, ajv = new Ajv({ allErrors: true })) {
   const outputs = fs.readdirSync(`./outputs/${outputType}`)
   const outputMap = _.reduce(outputs, (map, filename) => {
     const name = filename.replace('.json', '')
@@ -21,7 +15,7 @@ function executeTests(outputType, jsonSchema) {
 
   files.forEach((file) => {
     if (file.indexOf(process.env.CASE_PATTERN || 'joi-obj-') === 0) {
-      test(`JSON Schema Parsing - ${file} `, () => {
+      test(`${outputType} schema parsing - ${file} `, () => {
         const joiObj = require(`../fixtures/${file}`)
         const destSchema = parse(joiObj, outputType)
 
@@ -33,13 +27,11 @@ function executeTests(outputType, jsonSchema) {
         expect(destSchema).toEqual(expected)
 
         // Safety net in case the expected output is not compatible to json schema
-        if (!!jsonSchema) {
-          const result = v.validate(destSchema, jsonSchema)
-          if (result.errors.length > 0) {
-            console.error(JSON.stringify(result.errors, null, 2))
-          }
-          expect(result.errors.length).toBe(0)
+        const validationResult = ajv.validateSchema(destSchema)
+        if (!validationResult) {
+          console.error(JSON.stringify(ajv.errors, null, 2))
         }
+        expect(validationResult).toBeTruthy()
       })
     }
   })

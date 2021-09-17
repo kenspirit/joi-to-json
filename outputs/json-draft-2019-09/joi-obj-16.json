@@ -76,9 +76,35 @@
       "exclusiveMaximum": 200,
       "maximum": 200
     },
+    "heightRank": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "level": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    },
     "isoDateString": {
       "type": "string",
       "format": "date-time"
+    },
+    "isoDurationString": {
+      "type": "string",
+      "format": "duration"
     },
     "birthday": {
       "type": "string",
@@ -145,6 +171,7 @@
       "format": "binary"
     },
     "notes": {
+      "deprecated": true,
       "type": [
         "array",
         "boolean",

@@ -10,7 +10,7 @@ That is why I build [joi-route-to-swagger](https://github.com/kenspirit/joi-rout
 
 At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  I believed there was reason.  Maybe joi did not provide the `describe` api way before.  But I always feel uncomfortable and think it's time to move on.
 
-The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema (draft-04)](https://json-schema.org/specification-links.html#draft-4) using `describe` api.
+The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema](https://json-schema.org) using `describe` api.
 
 ## 2.0.0 is out
 
@@ -41,7 +41,8 @@ It's a breaking change.
 * @hapi/joi
   * 15.1.1
   * 16.1.8
-  * 17.1.0
+* joi
+  * 17.4.2
 
 For all above versions, I have tested one complex joi object [fixtures](./fixtures) which covers most of the JSON schema attributes that can be described in joi schema.
 
@@ -52,7 +53,11 @@ Although the versions chosen are the latest one for each major version, I believ
 
 Only one API `parse` is available.  It's signature is `parse(joiObj, type = 'json')`
 
-Currently supported output types are `json` and `open-api`.  
+Currently supported output types:  
+* `json` - Default.  Stands for JSON Schema Draft 07
+* `open-api` - Stands for OpenAPI Schema
+* `json-draft-04` - Stands for JSON Schema Draft 04
+* `json-draft-2019-09` - Stands for JSON Schema Draft 2019-09
 
 The output schema format are in [outputs](./outputs) under specific folders for different types.
 
@@ -81,7 +86,8 @@ const joiSchema = joi.object().keys({
   ).required()).min(1).max(3).unique().description('Skills'),
   tags: joi.array().items(joi.string().required()).length(2),
   retired: joi.boolean().truthy('yes').falsy('no').insensitive(false),
-  certificate: joi.binary().encoding('base64')
+  certificate: joi.binary().encoding('base64'),
+  notes: joi.any().meta({ 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true })
 })
 
 const jsonSchema = parse(joiSchema)
