@@ -74,8 +74,8 @@
       "type": "string"
     },
     "height": {
-      "exclusiveMaximum": 200,
-      "exclusiveMinimum": 0,
+      "exclusiveMaximum": true,
+      "exclusiveMinimum": true,
       "maximum": 200,
       "minimum": 0,
       "type": "number"
