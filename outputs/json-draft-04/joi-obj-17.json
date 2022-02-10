@@ -183,10 +183,12 @@
     "meta": {
       "properties": {
         "hash": {
+          "format": "override_ip_format",
           "type": "string"
         },
         "optional": {
-          "type": "string"
+          "format": "custom_format",
+          "type": "number"
         }
       },
       "type": "object",

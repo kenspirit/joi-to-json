@@ -39,8 +39,8 @@ module.exports = joi.object().keys({
   notes: joi.any().meta({ 'x-supported-lang': ['zh-CN', 'en-US'] }),
   facebookId: joi.string().allow(null),
   meta: joiRequired.object().keys({
-    hash: joiRequired.string(),
-    optional: joiRequired.string().optional()
+    hash: joiRequired.string().ip().meta({ format: 'override_ip_format' }),
+    optional: joiRequired.number().optional().meta({ format: 'custom_format' })
   }),
   nested: joiAllowUnknown.object().keys({
     key: joiAllowUnknown.string()
