@@ -51,6 +51,7 @@ function parse(joiObj, type = 'json') {
   }
 
   const joiBaseSpec = new convertor().toBaseSpec(joiObj.describe())
+  // fs.writeFileSync(`./internal_${convertor.getSupportVersion()}_${type}.json`, JSON.stringify(joiBaseSpec, null, 2))
   const parser = parsers[type]
   if (!parser) {
     throw new Error(`No parser is registered for ${type}`)

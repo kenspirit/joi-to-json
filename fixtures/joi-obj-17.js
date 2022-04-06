@@ -22,6 +22,11 @@ module.exports = joi.object().keys({
     then: joi.number().required(),
     otherwise: joi.string()
   }),
+  maleSpecific: joi.alternatives().conditional('gender', {
+    is: 'Male',
+    then: joi.string().not().empty().required(),
+    otherwise: joi.optional()
+  }),
   height: joi.number().precision(2).positive().greater(0).less(200),
   heightRank: joi.alternatives().conditional('height', {
     switch: [

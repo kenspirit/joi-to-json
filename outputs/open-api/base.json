@@ -99,6 +99,23 @@
       "format": "date-time",
       "type": "string"
     },
+    "maleSpecific": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": [
+            "array",
+            "boolean",
+            "number",
+            "object",
+            "string",
+            "null"
+          ]
+        }
+      ]
+    },
     "meta": {
       "additionalProperties": false,
       "properties": {
