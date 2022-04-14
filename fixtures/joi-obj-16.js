@@ -67,7 +67,7 @@ module.exports = joi.object().keys({
         .description('Name of something')
         .example('Jack')
         .required()
-    }))
+    }).unknown(false))
     .description('Some kind of list')
     .optional()
 })

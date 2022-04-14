@@ -230,6 +230,7 @@
       "description": "Some kind of list",
       "properties": {
         "/s/": {
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "id": {
@@ -258,6 +259,7 @@
       },
       "patternProperties": {
         "s": {
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "id": {

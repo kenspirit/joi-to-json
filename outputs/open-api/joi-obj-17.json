@@ -21,6 +21,7 @@
       "description": "Some kind of list",
       "properties": {
         "/s/": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "Tbe ID for the reference",
