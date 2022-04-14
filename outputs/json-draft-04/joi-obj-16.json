@@ -237,6 +237,34 @@
             "name"
           ]
         }
+      },
+      "patternProperties": {
+        "s": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Tbe ID for the reference",
+              "examples": [
+                123
+              ]
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Name of something",
+              "examples": [
+                "Jack"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        }
       }
     }
   },

@@ -2,7 +2,7 @@
 
 ## Objective
 
-I have been using [joi](https://hapi.dev/family/joi/) a lot in different Node.js projects which guards the API.
+I have been using [joi](https://joi.dev/) a lot in different Node.js projects to guard the API.
 It's **The most powerful schema description language and data validator for JavaScript.** as it said.
 
 Many times, we need to utilize this schema description to produce other output, such as Swagger OpenAPI doc.
@@ -102,6 +102,10 @@ const jsonSchema = parse(joiSchema)
 You can optionally set below environment variables:
 
 * `CASE_PATTERN=joi-obj-12` to control which version of joi obj to test
+
+## Known Limitation
+
+* For `object.pattern` usage in Joi, `pattern` parameter can only be a regular expression now as I cannot convert Joi object to regex yet.
 
 ## License
 
