@@ -16,10 +16,10 @@ module.exports = joi.object().keys({
   email: joi.string().email(),
   ip: joi.string().ip({ version: ['ipv4', 'ipv6'] }),
   hostname: joi.string().hostname().insensitive(),
-  gender: joi.string().valid('Male', 'Female', '').default('Male'),
+  gender: joi.string().valid('Male', 'Female', '', null).default('Male'),
   genderSpecific: joi.when('gender', {
     is: 'Female',
-    then: joi.number().required(),
+    then: joi.number().valid(0, 1, 2).required(),
     otherwise: joi.string()
   }),
   height: joi.number().precision(2).positive().greater(0).less(200),

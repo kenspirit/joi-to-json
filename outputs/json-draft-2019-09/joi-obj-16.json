@@ -52,17 +52,27 @@
       "format": "hostname"
     },
     "gender": {
-      "type": "string",
+      "type": [
+        "string",
+        "null"
+      ],
       "default": "Male",
       "enum": [
         "Male",
-        "Female"
+        "Female",
+        "",
+        null
       ]
     },
     "genderSpecific": {
       "oneOf": [
         {
-          "type": "number"
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
         },
         {
           "type": "string"

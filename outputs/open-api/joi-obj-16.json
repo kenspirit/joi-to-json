@@ -56,14 +56,22 @@
       "default": "Male",
       "enum": [
         "Male",
-        "Female"
+        "Female",
+        "",
+        null
       ],
+      "nullable": true,
       "type": "string"
     },
     "genderSpecific": {
       "oneOf": [
         {
-          "type": "number"
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
         },
         {
           "type": "string"
