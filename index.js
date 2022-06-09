@@ -21,7 +21,7 @@ fs.readdirSync(parsersDir).forEach(file => {
   }
 })
 
-function parse(joiObj, type = 'json') {
+function parse(joiObj, type = 'json', definitions = {}) {
   if (typeof joiObj.describe !== 'function') {
     throw new Error('Not an joi object.')
   }
@@ -58,7 +58,7 @@ function parse(joiObj, type = 'json') {
     throw new Error(`No parser is registered for ${type}`)
   }
 
-  return new parser().parse(joiBaseSpec)
+  return new parser().parse(joiBaseSpec, definitions)
 }
 
 module.exports = parse
