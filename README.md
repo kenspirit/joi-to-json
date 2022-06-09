@@ -101,11 +101,17 @@ const jsonSchema = parse(joiSchema)
 
 You can optionally set below environment variables:
 
-* `CASE_PATTERN=joi-obj-12` to control which version of joi obj to test
+* `CASE_PATTERN=joi-obj-17` to control which version of joi obj to test
 
 ## Known Limitation
 
 * For `object.pattern` usage in Joi, `pattern` parameter can only be a regular expression now as I cannot convert Joi object to regex yet.
+
+## Updates
+
+**Version 2.3.0**
+
+* Supports named link for schema resuse, such as `.link('#person')`.  **For `open-api` conversion**, as the shared schemas are located in `#/components/schemas` which is not self-contained, the conversion result contains an **extra `schemas`** field so that you can extract it when required.
 
 ## License
 

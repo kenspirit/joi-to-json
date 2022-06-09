@@ -22,7 +22,10 @@ module.exports = joi.object().keys({
     then: joi.number().valid(0, 1, 2).required(),
     otherwise: joi.string()
   }),
-  height: joi.number().precision(2).positive().greater(0).less(200),
+  height: joi.object().keys({
+    quantity: joi.number().precision(2).positive().greater(0).less(200),
+    unit: joi.string().required()
+  }).id('unit'),
   heightRank: joi.alternatives().conditional('height', {
     switch: [
       { is: 0, then: joi.string() },
@@ -30,6 +33,7 @@ module.exports = joi.object().keys({
       { is: joi.number().greater(300), then: joi.object().keys({ name: joi.string(), level: joi.number() }) }
     ]
   }),
+  weight: joi.link('#unit'),
   isoDateString: joi.string().isoDate(),
   isoDurationString: joi.string().isoDuration(),
   birthday: joi.date().iso(),
@@ -69,5 +73,6 @@ module.exports = joi.object().keys({
         .required()
     }).unknown(false))
     .description('Some kind of list')
-    .optional()
-})
+    .optional(),
+  children: joi.array().items(joi.link('#person'))
+}).id('person')

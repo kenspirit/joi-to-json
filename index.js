@@ -50,6 +50,7 @@ function parse(joiObj, type = 'json') {
     convertor = convertors[0]
   }
 
+  // fs.writeFileSync('./joi_spec.json', JSON.stringify(joiObj.describe(), null, 2))
   const joiBaseSpec = new convertor().toBaseSpec(joiObj.describe())
   // fs.writeFileSync(`./internal_${convertor.getSupportVersion()}_${type}.json`, JSON.stringify(joiBaseSpec, null, 2))
   const parser = parsers[type]
