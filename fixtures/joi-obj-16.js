@@ -6,6 +6,10 @@ const joiRequired = joi.defaults((schema) => schema.options({
 const joiAllowUnknown = joi.defaults((schema) => schema.options({
   allowUnknown: true
 }))
+const unitSchema = joi.object().keys({
+  quantity: joi.number().precision(2).positive().greater(0).less(200),
+  unit: joi.string().required()
+}).id('unit')
 
 module.exports = joi.object().keys({
   guid: joi.string().guid({ version: ['uuidv2', 'uuidv4'] }),
@@ -22,10 +26,7 @@ module.exports = joi.object().keys({
     then: joi.number().valid(0, 1, 2).required(),
     otherwise: joi.string()
   }),
-  height: joi.object().keys({
-    quantity: joi.number().precision(2).positive().greater(0).less(200),
-    unit: joi.string().required()
-  }).id('unit'),
+  height: joi.link('#unit').shared(unitSchema),
   heightRank: joi.alternatives().conditional('height', {
     switch: [
       { is: 0, then: joi.string() },
@@ -33,7 +34,7 @@ module.exports = joi.object().keys({
       { is: joi.number().greater(300), then: joi.object().keys({ name: joi.string(), level: joi.number() }) }
     ]
   }),
-  weight: joi.link('#unit'),
+  weight: joi.link('#unit').shared(unitSchema),
   isoDateString: joi.string().isoDate(),
   isoDurationString: joi.string().isoDuration(),
   birthday: joi.date().iso(),
