@@ -1,6 +1,9 @@
 {
   "$ref": "#/definitions/person",
   "definitions": {
+    "unifiedString": {
+      "type": "string"
+    },
     "unit": {
       "type": "object",
       "additionalProperties": false,
@@ -97,7 +100,7 @@
               ]
             },
             {
-              "type": "string"
+              "$ref": "#/definitions/unifiedString"
             }
           ]
         },
@@ -110,7 +113,7 @@
         "heightRank": {
           "oneOf": [
             {
-              "type": "string"
+              "$ref": "#/definitions/unifiedString"
             },
             {
               "type": "number"

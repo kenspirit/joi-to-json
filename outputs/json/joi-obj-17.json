@@ -1,6 +1,9 @@
 {
   "$ref": "#/$defs/person",
   "$defs": {
+    "unifiedString": {
+      "type": "string"
+    },
     "unit": {
       "type": "object",
       "additionalProperties": false,
@@ -95,7 +98,7 @@
               ]
             },
             {
-              "type": "string"
+              "$ref": "#/$defs/unifiedString"
             }
           ]
         },
@@ -108,7 +111,7 @@
         "heightRank": {
           "oneOf": [
             {
-              "type": "string"
+              "$ref": "#/$defs/unifiedString"
             },
             {
               "type": "number"

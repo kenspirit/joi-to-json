@@ -1,6 +1,9 @@
 {
   "$ref": "#/components/schemas/person",
   "schemas": {
+    "unifiedString": {
+      "type": "string"
+    },
     "unit": {
       "type": "object",
       "additionalProperties": false,
@@ -102,7 +105,7 @@
               ]
             },
             {
-              "type": "string"
+              "$ref": "#/components/schemas/unifiedString"
             }
           ]
         },
@@ -116,7 +119,7 @@
         "heightRank": {
           "oneOf": [
             {
-              "type": "string"
+              "$ref": "#/components/schemas/unifiedString"
             },
             {
               "type": "number"
