@@ -21,6 +21,7 @@ module.exports = joi.object().keys({
   email: joi.string().email(),
   ip: joi.string().ip({ version: ['ipv4', 'ipv6'] }),
   hostname: joi.string().hostname().insensitive(),
+  type: joi.string().valid('user'),
   gender: joi.string().valid('Male', 'Female', '', null).default('Male'),
   genderSpecific: joi.when('gender', {
     is: 'Female',

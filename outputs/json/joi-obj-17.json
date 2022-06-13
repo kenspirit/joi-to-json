@@ -74,6 +74,10 @@
           "type": "string",
           "format": "hostname"
         },
+        "type": {
+          "type": "string",
+          "const": "user"
+        },
         "gender": {
           "type": [
             "string",

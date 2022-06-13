@@ -83,6 +83,10 @@
           "nullable": true,
           "type": "string"
         },
+        "type": {
+          "enum": ["user"],
+          "type": "string"
+        },
         "gender": {
           "default": "Male",
           "enum": [
