@@ -28,6 +28,16 @@ module.exports = joi.object().keys({
     then: joi.number().valid(0, 1, 2).required(),
     otherwise: joi.link('#unifiedString')
   }),
+  genderSpecificSwitch: joi.when('gender', [
+    {
+      is: 'Male',
+      then: joi.string()
+    },
+    {
+      is: 'Female',
+      then: joi.number()
+    }
+  ]),
   maleSpecific: joi.alternatives().conditional('gender', {
     is: 'Male',
     then: joi.string().not().empty().required(),

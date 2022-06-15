@@ -113,6 +113,16 @@
             }
           ]
         },
+        "genderSpecificSwitch":  {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
         "guid": {
           "format": "uuid",
           "type": "string"
