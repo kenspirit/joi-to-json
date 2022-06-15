@@ -108,6 +108,16 @@
             }
           ]
         },
+        "genderSpecificSwitch":  {
+          "oneOf": [
+             {
+               "type": "string"
+             },
+             {
+               "type": "number"
+             }
+           ]
+         },
         "height": {
           "$ref": "#/$defs/unit"
         },
