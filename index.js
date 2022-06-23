@@ -51,11 +51,27 @@ function parse(joiObj, type = 'json', definitions = {}) {
   }
 
   // fs.writeFileSync('./joi_spec.json', JSON.stringify(joiObj.describe(), null, 2))
-  const joiBaseSpec = new convertor().toBaseSpec(joiObj.describe())
+  let joiBaseSpec = new convertor().toBaseSpec(joiObj.describe())
   // fs.writeFileSync(`./internal_${convertor.getSupportVersion()}_${type}.json`, JSON.stringify(joiBaseSpec, null, 2))
   const parser = parsers[type]
   if (!parser) {
     throw new Error(`No parser is registered for ${type}`)
+  }
+
+  if (joiBaseSpec.flags) {
+    const newSchemaName = joiBaseSpec.flags.label;
+    if (newSchemaName) {
+      definitions[newSchemaName] = new parser().parse(joiBaseSpec)
+      joiBaseSpec = {
+        type: 'link',
+        link: {
+          ref: {
+            path: [newSchemaName],
+            type: 'local'
+          }
+        }
+      }
+    }
   }
 
   return new parser().parse(joiBaseSpec, definitions)
