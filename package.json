@@ -1,6 +1,6 @@
 {
   "name": "joi-to-json",
-  "version": "2.3.6",
+  "version": "2.4.0",
   "description": "joi to JSON / OpenAPI Schema Converter",
   "main": "index.js",
   "repository": {
@@ -38,8 +38,10 @@
     "joi-16": "npm:@hapi/joi@^16.1.8",
     "joi-17": "npm:joi@^17.4.2"
   },
+  "types": "index.d.ts",
   "files": [
     "lib/**/*.js",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ]
 }
