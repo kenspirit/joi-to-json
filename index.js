@@ -1,25 +1,26 @@
 const cmp = require('semver-compare')
-const fs = require('fs')
-const path = require('path')
 
-const convertorsDir = path.resolve(__dirname, './lib/convertors')
-const parsersDir = path.resolve(__dirname, './lib/parsers')
-const convertors = []
-const parsers = {}
+const c17 = require('./lib/convertors/v17')
+const c16 = require('./lib/convertors/v16')
+const c15 = require('./lib/convertors/v15')
+const c14 = require('./lib/convertors/v14')
+const c13 = require('./lib/convertors/v13')
+const c12 = require('./lib/convertors/v12')
 
-fs.readdirSync(convertorsDir).sort().reverse().forEach(file => {
-  if (file.endsWith('.js')) {
-    const convertor = require(`${convertorsDir}/${file}`)
-    convertors.push(convertor)
-  }
-})
+const JoiJsonSchemaParser = require('./lib/parsers/json')
+const JoiOpenApiSchemaParser = require('./lib/parsers/open-api')
+const JoiJsonDraftSchemaParser19 = require('./lib/parsers/json-draft-2019-09')
+const JoiJsonDraftSchemaParser = require('./lib/parsers/json-draft-04')
 
-fs.readdirSync(parsersDir).forEach(file => {
-  if (file.endsWith('.js')) {
-    const parser = require(`${parsersDir}/${file}`)
-    parsers[file.split('.')[0]] = parser
-  }
-})
+const convertors = [
+  c17, c16, c15, c14, c13, c12
+]
+const parsers = {
+  'json-draft-2019-09': JoiJsonDraftSchemaParser19,
+  'json-draft-4': JoiJsonDraftSchemaParser,
+  json: JoiJsonSchemaParser,
+  'open-api': JoiOpenApiSchemaParser
+}
 
 function parse(joiObj, type = 'json', definitions = {}) {
   if (typeof joiObj.describe !== 'function') {
