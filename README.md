@@ -96,12 +96,11 @@ const jsonSchema = parse(joiSchema)
 ```
 
 ## Browser support
-For generating JSON Schema in a browser you should use next import for `joi` library, in order to create your joi schema:
+For generating JSON Schema in a browser you should use below import syntax for `joi` library in order to work because the `joi` browser minimized build does not have `describe` api which the `joi-to-json` relies on.
+
 ```typescript
   import Joi from 'joi/lib/index';
 ```
-
-This restriction is because in a browser, `joi` don't have the method `describe` for minimize build size.
 
 ## Test
 
