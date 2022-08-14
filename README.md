@@ -95,6 +95,14 @@ const jsonSchema = parse(joiSchema)
 // const openApiSchema = parse(joiSchema, 'open-api')
 ```
 
+## Browser support
+For generating JSON Schema in a browser you should use next import for `joi` library, in order to create your joi schema:
+```typescript
+  import Joi from 'joi/lib/index';
+```
+
+This restriction is because in a browser, `joi` don't have the method `describe` for minimize build size.
+
 ## Test
 
 >npm run test
