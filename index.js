@@ -17,7 +17,7 @@ const convertors = [
 ]
 const parsers = {
   'json-draft-2019-09': JoiJsonDraftSchemaParser19,
-  'json-draft-4': JoiJsonDraftSchemaParser,
+  'json-draft-04': JoiJsonDraftSchemaParser,
   json: JoiJsonSchemaParser,
   'open-api': JoiOpenApiSchemaParser
 }
