@@ -87,5 +87,9 @@ module.exports = joi.object().keys({
     }).unknown(false))
     .description('Some kind of list')
     .optional(),
-  children: joi.array().items(joi.link('#person'))
+  children: joi.array().items(joi.link('#person')),
+  readOnlyTrue: joi.string().meta({ readOnly: true }),
+  readOnlyFalse: joi.string().meta({ readOnly: false }),
+  writeOnlyTrue: joi.string().meta({ writeOnly: true }),
+  writeOnlyFalse: joi.string().meta({ writeOnly: false })
 }).id('person').shared(unifiedString)
