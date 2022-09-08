@@ -234,6 +234,22 @@
     "uuid": {
       "format": "uuid",
       "type": "string"
+    },
+    "readOnlyTrue": {
+      "type": "string",
+      "readOnly": true
+    },
+    "readOnlyFalse": {
+      "type": "string",
+      "readOnly": false
+    },
+    "writeOnlyTrue": {
+      "type": "string",
+      "writeOnly": true
+    },
+    "writeOnlyFalse": {
+      "type": "string",
+      "writeOnly": false
     }
   },
   "required": [
