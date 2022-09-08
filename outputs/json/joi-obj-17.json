@@ -337,6 +337,18 @@
             "$ref": "#/$defs/person"
           },
           "type": "array"
+        },
+        "readOnlyTrue": {
+          "type": "string"
+        },
+        "readOnlyFalse": {
+          "type": "string"
+        },
+        "writeOnlyTrue": {
+          "type": "string"
+        },
+        "writeOnlyFalse": {
+          "type": "string"
         }
       },
       "required": [

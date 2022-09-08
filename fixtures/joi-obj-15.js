@@ -67,5 +67,9 @@ module.exports = joi.object().keys({
         .required()
     }).unknown(false))
     .description('Some kind of list')
-    .optional()
+    .optional(),
+  readOnlyTrue: joi.string().meta({ readOnly: true }),
+  readOnlyFalse: joi.string().meta({ readOnly: false }),
+  writeOnlyTrue: joi.string().meta({ writeOnly: true }),
+  writeOnlyFalse: joi.string().meta({ writeOnly: false })
 })
