@@ -95,6 +95,153 @@ const jsonSchema = parse(joiSchema)
 // const openApiSchema = parse(joiSchema, 'open-api')
 ```
 
+### Joi to OpenAPI
+
+Most Joi specifications result in the expected OpenAPI schema. 
+
+E.g.,
+
+```js
+const joi = require('joi')
+const { dump } = require('js-yaml')
+const { writeFile } = require('fs/promises')
+
+const joiSchema = joi.object().keys({
+  uuid: joi.string().uuid({ version: ['uuidv3', 'uuidv5'] }),
+  nickName: joi.string().required().example('鹄思乱想').description('Hero Nickname').min(3).max(20).pattern(/^[a-z]+$/, { name: 'alpha', invert: true }),
+  avatar: joi.string().required().uri(),
+  email: joi.string().email(),
+  ip: joi.string().ip({ version: ['ipv4', 'ipv6'] }),
+  hostname: joi.string().hostname().insensitive(),
+  gender: joi.string().valid('Male', 'Female', '', null).default('Male'),
+  isoDateString: joi.string().isoDate(),
+  isoDurationString: joi.string().isoDuration(),
+  birthday: joi.date().iso(),
+  certificate: joi.binary().encoding('base64'),
+  tags: joi.array().items(joi.string().required()).length(2),
+  nested: joi.object().keys({
+    key: joi.string()
+  }).unknown(true)
+}).unknown(false)
+
+async function writeYAML(targetPath) {
+  const openApiSchema = parse(joiSchema, 'open-api')
+
+  const openApiSchemaYAML = dump(openApiSchema, {lineWidth: 120, noCompatMode: true})
+  await writeFile(targetPath, openApiSchemaYAML)
+}
+```
+
+results in
+
+```yaml
+type: object
+required:
+  - nickName
+  - avatar
+properties:
+  uuid:
+    type: string
+    format: uuid
+  nickName:
+    description: Hero Nickname
+    type: string
+    pattern: ^[a-z]+$
+    minLength: 3,
+    maxLength: 20,
+    example: 鹄思乱想
+  avatar:
+    type: string
+    format: uri
+  email:
+    type: string
+    format: email
+  ip:
+    type: string
+    oneOf:
+      - format: ipv4
+      - format: ipv6
+  hostname:
+    type: string
+    format: hostname
+  gender:
+    type: string
+    default: Male
+    enum:
+      - Male
+      - Female
+      - ''
+      - null
+    nullable: true
+  isoDateString:
+    type: string
+    format: date-time
+  isoDurationString:
+    type: string
+    format: duration
+  birthday:
+    type: string
+    format: date-time
+  certificate:
+    type: string
+    format: binary
+  tags:
+    type: array
+    items:
+      type: string
+    minItems: 2
+    maxItems: 2
+  nested:
+    type: object
+    properties:
+      key:
+        type: string
+    additionalProperties: true    
+additionalProperties: false
+```
+
+Some OpenAPI features are not supported directly in Joi, but Joi schemas can be annotated with `joi.any().meta({…})` 
+to get them in the OpenAPI schema:
+
+```js
+…
+
+const joiSchema = joi.object().keys({
+  deprecatedProperty: joi.string().meta({ deprecated: true }).required(),
+  readOnlyProperty: joi.string().meta({ readOnly: true }),
+  writeOnlyProperty: joi.string().meta({ writeOnly: true }),
+  xMeta: joi.string().meta({ 'x-meta': 42 }),
+  unknownMetaProperty: joi.string().meta({ unknownMeta: 42 })
+}).unknown(true)
+
+…
+```
+
+begets:
+
+```yaml
+type: object
+required:
+  - deprecatedProperty
+properties:
+  deprecatedProperty:
+    type: string
+    deprecated: true
+  readOnlyProperty:
+    type: string
+    readOnly: true
+  writeOnlyProperty:
+    type: string
+    writeOnly: true
+  xMeta:
+    type: string
+    x-meta: 42
+  unknownMetaProperty:
+    type: string
+    # unknownMeta is not exported
+additionalProperties: true
+```
+
 ## Browser support
 For generating JSON Schema in a browser you should use below import syntax for `joi` library in order to work because the `joi` browser minimized build does not have `describe` api which the `joi-to-json` relies on.
 
