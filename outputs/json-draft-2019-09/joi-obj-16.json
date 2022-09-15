@@ -357,9 +357,6 @@
         },
         "enumWithOverride": {
           "enum": [
-            {
-              "override": true
-            },
             "x",
             "y",
             "z"

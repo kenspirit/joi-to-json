@@ -333,9 +333,6 @@
         "enumWithOverride": {
           "type": "string",
           "enum": [
-            {
-              "override": true
-            },
             "x",
             "y",
             "z"
