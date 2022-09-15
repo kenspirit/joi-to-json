@@ -111,5 +111,9 @@ module.exports = joi.object().keys({
     .valid(joi.override, 'x', 'y', 'z')
     .example('x', {override: true})
     .example('y')
-    .example('z')
+    .example('z'),
+  enumWithEmptyOverride: joi
+    .string()
+    .valid('a', 'b', 'c')
+    .valid(joi.override)
 }).id('person').shared(unifiedString)

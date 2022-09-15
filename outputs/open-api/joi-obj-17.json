@@ -338,6 +338,9 @@
             "z"
           ],
           "example": "x"
+        },
+        "enumWithEmptyOverride": {
+          "type": "string"
         }
       },
       "required": [
