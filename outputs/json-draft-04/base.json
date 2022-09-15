@@ -285,20 +285,6 @@
     },
     "writeOnlyFalse": {
       "type": "string"
-    },
-    "extendedEnum": {
-      "enum": [
-        "a",
-        "b",
-        "c",
-        "x",
-        "y",
-        "z"
-      ],
-      "examples": [
-        "z"
-      ],
-      "type": "string"
     }
   },
   "required": [

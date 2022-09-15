@@ -250,18 +250,6 @@
     "writeOnlyFalse": {
       "type": "string",
       "writeOnly": false
-    },
-    "extendedEnum": {
-      "type": "string",
-      "enum": [
-        "a",
-        "b",
-        "c",
-        "x",
-        "y",
-        "z"
-      ],
-      "example": "z"
     }
   },
   "required": [
