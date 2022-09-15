@@ -352,6 +352,41 @@
         },
         "writeOnlyFalse": {
           "type": "string"
+        },
+        "extendedEnum": {
+          "enum": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "y",
+            "z"
+          ],
+          "examples": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "y",
+            "z"
+          ],
+          "type": "string"
+        },
+        "enumWithOverride": {
+          "enum": [
+            {
+              "override": true
+            },
+            "x",
+            "y",
+            "z"
+          ],
+          "examples": [
+            "x",
+            "y",
+            "z"
+          ],
+          "type": "string"
         }
       },
       "required": [

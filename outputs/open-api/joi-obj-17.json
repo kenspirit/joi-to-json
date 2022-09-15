@@ -113,7 +113,7 @@
             }
           ]
         },
-        "genderSpecificSwitch":  {
+        "genderSpecificSwitch": {
           "oneOf": [
             {
               "type": "string"
@@ -317,6 +317,30 @@
         "writeOnlyFalse": {
           "type": "string",
           "writeOnly": false
+        },
+        "extendedEnum": {
+          "type": "string",
+          "enum": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "y",
+            "z"
+          ],
+          "example": "a"
+        },
+        "enumWithOverride": {
+          "type": "string",
+          "enum": [
+            {
+              "override": true
+            },
+            "x",
+            "y",
+            "z"
+          ],
+          "example": "x"
         }
       },
       "required": [
