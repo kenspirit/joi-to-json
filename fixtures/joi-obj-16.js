@@ -91,5 +91,29 @@ module.exports = joi.object().keys({
   readOnlyTrue: joi.string().meta({ readOnly: true }),
   readOnlyFalse: joi.string().meta({ readOnly: false }),
   writeOnlyTrue: joi.string().meta({ writeOnly: true }),
-  writeOnlyFalse: joi.string().meta({ writeOnly: false })
+  writeOnlyFalse: joi.string().meta({ writeOnly: false }),
+  extendedEnum: joi
+    .string()
+    .valid('a', 'b', 'c')
+    .example('a')
+    .example( 'b')
+    .example( 'c')
+    .valid('x', 'y', 'z')
+    .example('x')
+    .example('y')
+    .example('z'),
+  enumWithOverride: joi
+    .string()
+    .valid('a', 'b', 'c')
+    .example('a')
+    .example( 'b')
+    .example( 'c')
+    .valid(joi.override, 'x', 'y', 'z')
+    .example('x', {override: true})
+    .example('y')
+    .example('z'),
+  enumWithEmptyOverride: joi
+    .string()
+    .valid('a', 'b', 'c')
+    .valid(joi.override)
 }).id('person').shared(unifiedString)

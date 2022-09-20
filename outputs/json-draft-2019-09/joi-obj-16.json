@@ -108,7 +108,7 @@
             }
           ]
         },
-        "genderSpecificSwitch":  {
+        "genderSpecificSwitch": {
           "oneOf": [
             {
               "type": "string"
@@ -334,6 +334,41 @@
           "type": "string"
         },
         "writeOnlyFalse": {
+          "type": "string"
+        },
+        "extendedEnum": {
+          "enum": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "y",
+            "z"
+          ],
+          "examples": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "y",
+            "z"
+          ],
+          "type": "string"
+        },
+        "enumWithOverride": {
+          "enum": [
+            "x",
+            "y",
+            "z"
+          ],
+          "examples": [
+            "x",
+            "y",
+            "z"
+          ],
+          "type": "string"
+        },
+        "enumWithEmptyOverride": {
           "type": "string"
         }
       },
