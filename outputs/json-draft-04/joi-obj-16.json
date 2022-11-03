@@ -376,6 +376,102 @@
         "avatar",
         "meta"
       ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "guid"
+              ]
+            },
+            {
+              "required": [
+                "uuid"
+              ]
+            }
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "email",
+                "password",
+                "type"
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "not": {
+                    "required": [
+                      "email"
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "required": [
+                      "password"
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "required": [
+                      "type"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "not": {
+            "required": [
+              "readOnlyTrue",
+              "readOnlyFalse"
+            ]
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "ip"
+              ]
+            },
+            {
+              "required": [
+                "hostname"
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "ip"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "hostname"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "ip",
+                      "hostname"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "additionalProperties": false
     }
   }

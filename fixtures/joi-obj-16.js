@@ -117,3 +117,8 @@ module.exports = joi.object().keys({
     .valid('a', 'b', 'c')
     .valid(joi.override)
 }).id('person').shared(unifiedString)
+  .or('guid', 'uuid')
+  .and('email', 'password', 'type')
+  .nand('readOnlyTrue', 'readOnlyFalse')
+  .xor('genderSpecific', 'maleSpecific')
+  .oxor('ip', 'hostname')

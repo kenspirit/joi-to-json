@@ -249,6 +249,10 @@ For generating JSON Schema in a browser you should use below import syntax for `
   import Joi from 'joi/lib/index';
 ```
 
+## Special Joi Operator Support
+
+* [Logical Relation Operator](./docs/logical_rel_support.md)
+
 ## Test
 
 >npm run test

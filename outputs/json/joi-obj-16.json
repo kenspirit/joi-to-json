@@ -376,6 +376,128 @@
         "avatar",
         "meta"
       ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "guid"
+              ]
+            },
+            {
+              "required": [
+                "uuid"
+              ]
+            }
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "email",
+                "password",
+                "type"
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "not": {
+                    "required": [
+                      "email"
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "required": [
+                      "password"
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "required": [
+                      "type"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "not": {
+            "required": [
+              "readOnlyTrue",
+              "readOnlyFalse"
+            ]
+          }
+        },
+        {
+          "else": {
+            "oneOf": [
+              {
+                "required": [
+                  "genderSpecific"
+                ]
+              },
+              {
+                "required": [
+                  "maleSpecific"
+                ]
+              }
+            ]
+          },
+          "if": {
+            "minProperties": 2,
+            "propertyNames": {
+              "enum": [
+                "genderSpecific",
+                "maleSpecific"
+              ]
+            }
+          },
+          "then": false
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "ip"
+              ]
+            },
+            {
+              "required": [
+                "hostname"
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "ip"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "hostname"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "ip",
+                      "hostname"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "additionalProperties": false
     }
   }

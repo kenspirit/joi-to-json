@@ -22,7 +22,7 @@ const parsers = {
   'open-api': JoiOpenApiSchemaParser
 }
 
-function parse(joiObj, type = 'json', definitions = {}) {
+function parse(joiObj, type = 'json', definitions = {}, parserOptions = {}) {
   if (typeof joiObj.describe !== 'function') {
     throw new Error('Not an joi object.')
   }
@@ -59,7 +59,7 @@ function parse(joiObj, type = 'json', definitions = {}) {
     throw new Error(`No parser is registered for ${type}`)
   }
 
-  return new parser().parse(joiBaseSpec, definitions)
+  return new parser(parserOptions).parse(joiBaseSpec, definitions)
 }
 
 module.exports = parse

@@ -257,5 +257,65 @@
     "avatar",
     "meta"
   ],
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "required": [
+            "guid"
+          ]
+        },
+        {
+          "required": [
+            "uuid"
+          ]
+        }
+      ]
+    },
+    {
+      "oneOf": [
+        {
+          "required": [
+            "email",
+            "password",
+            "type"
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "not": {
+                "required": [
+                  "email"
+                ]
+              }
+            },
+            {
+              "not": {
+                "required": [
+                  "password"
+                ]
+              }
+            },
+            {
+              "not": {
+                "required": [
+                  "type"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "not": {
+        "required": [
+          "readOnlyTrue",
+          "readOnlyFalse"
+        ]
+      }
+    }
+  ],
   "type": "object"
 }

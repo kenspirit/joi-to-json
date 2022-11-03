@@ -23,6 +23,7 @@
     "oas"
   ],
   "dependencies": {
+    "combinations": "^1.0.0",
     "lodash": "^4.17.21",
     "semver-compare": "^1.0.0"
   },

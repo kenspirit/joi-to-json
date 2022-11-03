@@ -72,4 +72,7 @@ module.exports = joi.object().keys({
   readOnlyFalse: joi.string().meta({ readOnly: false }),
   writeOnlyTrue: joi.string().meta({ writeOnly: true }),
   writeOnlyFalse: joi.string().meta({ writeOnly: false })
-})
+}).or('guid', 'uuid')
+  .and('email', 'password', 'type')
+  .nand('readOnlyTrue', 'readOnlyFalse')
+  .xor('genderSpecific', 'maleSpecific')
