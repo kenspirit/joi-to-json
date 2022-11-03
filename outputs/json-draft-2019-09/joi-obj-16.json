@@ -497,8 +497,36 @@
               }
             }
           ]
+        },
+        {
+          "if": {
+            "required": [
+              "readOnlyTrue"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "writeOnlyTrue"
+                  ]
+                },
+                {
+                  "required": [
+                    "writeOnlyFalse"
+                  ]
+                }
+              ]
+            }
+          }
         }
       ],
+      "dependentRequired": {
+        "birthTime": [
+          "birthday"
+        ]
+      },
       "additionalProperties": false
     }
   }

@@ -76,3 +76,5 @@ module.exports = joi.object().keys({
   .and('email', 'password', 'type')
   .nand('readOnlyTrue', 'readOnlyFalse')
   .xor('genderSpecific', 'maleSpecific')
+  .with('birthTime', ['birthday'])
+  .without('readOnlyTrue', ['writeOnlyTrue', 'writeOnlyFalse'])

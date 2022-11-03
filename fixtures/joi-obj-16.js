@@ -122,3 +122,5 @@ module.exports = joi.object().keys({
   .nand('readOnlyTrue', 'readOnlyFalse')
   .xor('genderSpecific', 'maleSpecific')
   .oxor('ip', 'hostname')
+  .with('birthTime', ['birthday'])
+  .without('readOnlyTrue', ['writeOnlyTrue', 'writeOnlyFalse'])

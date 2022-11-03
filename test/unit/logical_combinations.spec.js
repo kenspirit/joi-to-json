@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const joi = require('joi-17')
-const Ajv = require('ajv')
+const Ajv = require('ajv/dist/2019')
 const parse = require('../../index')
 
 const ajv = new Ajv({ allErrors: true })
@@ -11,8 +11,12 @@ const JOI_OBJ = joi.object({
   email: joi.string(),
   password: joi.string(),
   type: joi.string(),
+  birthTime: joi.string(),
+  birthday: joi.string(),
   readOnlyTrue: joi.string(),
   readOnlyFalse: joi.string(),
+  writeOnlyTrue: joi.string(),
+  writeOnlyFalse: joi.string(),
   genderSpecific: joi.string(),
   maleSpecific: joi.string(),
   ip: joi.string(),
@@ -23,6 +27,8 @@ const JOI_OBJ = joi.object({
   .nand('readOnlyTrue', 'readOnlyFalse')
   .xor('genderSpecific', 'maleSpecific')
   .oxor('ip', 'hostname')
+  .with('birthTime', ['birthday'])
+  .without('readOnlyTrue', ['writeOnlyTrue', 'writeOnlyFalse'])
 
 const BASE_SCHEMA = {
   'type': 'object',
@@ -32,8 +38,12 @@ const BASE_SCHEMA = {
     'email': { 'type': 'string' },
     'password': { 'type': 'string' },
     'type': { 'type': 'string' },
+    'birthTime': { 'type': 'string' },
+    'birthday': { 'type': 'string' },
     'readOnlyTrue': { 'type': 'string' },
     'readOnlyFalse': { 'type': 'string' },
+    'writeOnlyTrue': { 'type': 'string' },
+    'writeOnlyFalse': { 'type': 'string' },
     'genderSpecific': { 'type': 'string' },
     'maleSpecific': { 'type': 'string' },
     'ip': { 'type': 'string' },
@@ -41,6 +51,11 @@ const BASE_SCHEMA = {
     'isAdditional': { 'type': 'boolean' }
   },
   'additionalProperties': false,
+  'dependentRequired': {
+    'birthTime': [
+      'birthday'
+    ]
+  },
   'allOf': [
     {
       'anyOf': [
@@ -100,6 +115,29 @@ const BASE_SCHEMA = {
           }
         }
       ]
+    },
+    {
+      'if': {
+        'required': [
+          'readOnlyTrue'
+        ]
+      },
+      'then': {
+        'not': {
+          'anyOf': [
+            {
+              'required': [
+                'writeOnlyTrue'
+              ]
+            },
+            {
+              'required': [
+                'writeOnlyFalse'
+              ]
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -164,13 +202,37 @@ test('oxor - normal', () => {
   expect(validate.errors).toBeFalsy()
 })
 
+test('with - normal', () => {
+  const joiObj = JOI_OBJ
+  const jsonSchema = parse(joiObj)
+  const validate = ajv.compile(jsonSchema)
+
+  expect(jsonSchema).toEqual(BASE_SCHEMA)
+  validate({ guid: '', maleSpecific: '', birthTime: '' })
+  expect(validate.errors).toBeTruthy()
+  validate({ guid: '', maleSpecific: '', birthTime: '', birthday: '' })
+  expect(validate.errors).toBeFalsy()
+})
+
+test('without - normal', () => {
+  const joiObj = JOI_OBJ
+  const jsonSchema = parse(joiObj)
+  const validate = ajv.compile(jsonSchema)
+
+  expect(jsonSchema).toEqual(BASE_SCHEMA)
+  validate({ guid: '', maleSpecific: '', readOnlyTrue: '', writeOnlyTrue: '' })
+  expect(validate.errors).toBeTruthy()
+  validate({ guid: '', maleSpecific: '', readOnlyTrue: '' })
+  expect(validate.errors).toBeFalsy()
+})
+
 test('combination - normal', () => {
   const joiObj = JOI_OBJ
   const jsonSchema = parse(joiObj)
   const validate = ajv.compile(jsonSchema)
 
   expect(jsonSchema).toEqual(BASE_SCHEMA)
-  validate({ guid: '', genderSpecific: '', hostname: '', readOnlyFalse: '', email: '', password: '', type: '' })
+  validate({ guid: '', genderSpecific: '', hostname: '', email: '', password: '', type: '', birthTime: '', birthday: '', readOnlyTrue: '' })
   expect(validate.errors).toBeFalsy()
 })
 
@@ -179,7 +241,7 @@ test('combination - disable all logical convertor', () => {
   const jsonSchema = parse(joiObj, 'json', {}, { logicalOpParser: false })
   const validate = ajv.compile(jsonSchema)
 
-  expect(jsonSchema).toEqual(_.omit(BASE_SCHEMA, 'allOf'))
+  expect(jsonSchema).toEqual(_.omit(BASE_SCHEMA, ['allOf', 'dependentRequired']))
   validate({ guid: '', genderSpecific: '', hostname: '', readOnlyFalse: '', email: '', password: '', type: '' })
   expect(validate.errors).toBeFalsy()
 })

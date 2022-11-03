@@ -352,5 +352,10 @@
       }
     }
   ],
+  "dependencies": {
+    "birthTime": [
+      "birthday"
+    ]
+  },
   "additionalProperties": false
 }

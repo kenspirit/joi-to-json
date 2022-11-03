@@ -7,6 +7,8 @@ There are some logical relation operators in Joi:
 * `or`
 * `xor`
 * `oxor` (After Joi v14)
+* `with`
+* `without`
 
 For different operator, I have managed to describe them in JSON schema as below for different cases.
 Some named as `xxxGeneral` means it should be supported since JSON Draft 4.
@@ -175,6 +177,64 @@ const oxorSchemaGeneral = {
       }
     }
   ],
+  properties: { a: { type: 'string' }, b: { type: 'number' }, c: { type: 'boolean' }, d: { type: 'number' } },
+  additionalProperties: false
+};
+```
+
+### WITH
+
+```javascript
+// With d exists, both a and b must exist
+// Failed on { d: 1, a: '' }
+const withJoi = jjoi.object({
+  a: joi.string(),
+  b: joi.number(),
+  c: joi.boolean(),
+  d: joi.number()
+}).with('c', ['a']).with('d', ['a', 'b']);
+
+const withSchemaBeforeBefore2019 = {
+  type: 'object',
+  dependencies: {
+    c: ['a'],
+    d: ['a', 'b']
+  },
+  properties: { a: { type: 'string' }, b: { type: 'number' }, c: { type: 'boolean' }, d: { type: 'number' } },
+  additionalProperties: false
+};
+
+const withSchemaBeforeDraft2019 = {
+  type: 'object',
+  dependentRequired: {
+    c: ['a'],
+    d: ['a', 'b']
+  },
+  properties: { a: { type: 'string' }, b: { type: 'number' }, c: { type: 'boolean' }, d: { type: 'number' } },
+  additionalProperties: false
+};
+```
+
+### WITHOUT
+
+```javascript
+// With a exists, either b or c must not exist
+// Failed on { a: '', b: 1 }
+const withoutJoi = jjoi.object({
+  a: joi.string(),
+  b: joi.number(),
+  c: joi.boolean(),
+  d: joi.number()
+}).without('a', ['b', 'c']);
+
+const withoutSchemaDraft7 = {
+  type: 'object',
+  if: { required: ['a'] },
+  then: {
+    not: {
+      anyOf: [{ required: ['b'] }, { required: ['c'] }]
+    }
+  },
   properties: { a: { type: 'string' }, b: { type: 'number' }, c: { type: 'boolean' }, d: { type: 'number' } },
   additionalProperties: false
 };

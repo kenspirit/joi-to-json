@@ -41,6 +41,7 @@
   },
   "types": "index.d.ts",
   "files": [
+    "docs/**/*",
     "lib/**/*.js",
     "index.js",
     "index.d.ts"
