@@ -1,3 +1,7 @@
+### 3.1.1
+
+- Fix Typescript definition.
+
 ### 3.1.0
 
 - Add support for relation operator `with` and `without`.

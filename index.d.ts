@@ -1,18 +1,36 @@
 import Joi from 'joi-17';
 
-declare module Joi2Json {
-  /**
-   * @type {string}
-   */
-  export type Mode = 'json' | 'open-api' | 'json-draft-2019-09' | 'json-draft-04';
+/**
+ * @type {string}
+ */
+export type Mode = 'json' | 'open-api' | 'json-draft-2019-09' | 'json-draft-04';
 
-  /**
-   * @param {string} joi - A Joi schema.
-   * @param {string} [mode='json'] - json / open-api / json-draft-2019-09 / json-draft-04
-   * @param {Record} [sharedSchema={}] - Passed-in object storing shared schemas
-   * @returns {any} Converted JSON schema object.
-   */
-  export function parse(joi: Joi.Schema, mode?: Mode, sharedSchema?: Record<string, any>): any;
-}
+/**
+ * The parser function modifies the schema in-place.
+ * @param {any} schema - JSON schema object
+ * @param {any} dependency - JOI dependency object
+ */
+export type LogicalOpParserFn = (schema, dependency) => void;
 
-export default Joi2Json.parse;
+export interface LogicalOpParserOpts {
+  and?: LogicalOpParserFn,
+  nand?: LogicalOpParserFn,
+  or?: LogicalOpParserFn,
+  xor?: LogicalOpParserFn,
+  oxor?: LogicalOpParserFn,
+  with?: LogicalOpParserFn,
+  without?: LogicalOpParserFn
+};
+
+export type ParserOptions = false | { logicalOpParser?: LogicalOpParserOpts };
+
+/**
+ * @param {Joi.Schema} joi - A Joi schema.
+ * @param {string} [mode='json'] - json / open-api / json-draft-2019-09 / json-draft-04
+ * @param {Record} [sharedSchema={}] - Passed-in object storing shared schemas
+ * @param {ParserOptions} [parserOptions={}] - Passed-in options for parser
+ * @returns {any} Converted JSON schema object.
+ */
+export function parse(joi: typeof Joi.Schema, mode?: Mode, sharedSchema?: Record<string, any>, parserOptions?: ParserOptions): any;
+
+export default parse;

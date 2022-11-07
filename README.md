@@ -242,6 +242,10 @@ properties:
 additionalProperties: true
 ```
 
+## Special Joi Operator Support
+
+* [Logical Relation Operator](./docs/logical_rel_support.md)
+
 ## Browser support
 For generating JSON Schema in a browser you should use below import syntax for `joi` library in order to work because the `joi` browser minimized build does not have `describe` api which the `joi-to-json` relies on.
 
@@ -249,9 +253,21 @@ For generating JSON Schema in a browser you should use below import syntax for `
   import Joi from 'joi/lib/index';
 ```
 
-## Special Joi Operator Support
+## TypeScript support
 
-* [Logical Relation Operator](./docs/logical_rel_support.md)
+```typescript
+import joi from 'joi';
+import * as Joi2Json from 'joi-to-json';
+import parse from 'joi-to-json';
+
+const logicalOpParser: Joi2Json.LogicalOpParserOpts = {
+  with: function (a) {}
+};
+
+parse(joi.string()); // Default call
+parse(joi.string(), 'json', {}, false); // Completely disable Logical Relation Operator
+parse(joi.string(), 'open-api', {}, { logicalOpParser }); // Partially override Logical Relation Operator
+```
 
 ## Test
 
