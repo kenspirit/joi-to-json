@@ -1,0 +1,37 @@
+{
+  "type": "alternatives",
+  "matches": [
+    {
+      "ref": {
+        "path": [
+          "gender"
+        ]
+      },
+      "is": {
+        "type": "any",
+        "flags": {
+          "only": true,
+          "presence": "required"
+        },
+        "allow": [
+          {
+            "override": true
+          },
+          "Male"
+        ]
+      },
+      "then": {
+        "type": "string",
+        "flags": {
+          "presence": "required"
+        }
+      },
+      "otherwise": {
+        "type": "any",
+        "flags": {
+          "presence": "optional"
+        }
+      }
+    }
+  ]
+}

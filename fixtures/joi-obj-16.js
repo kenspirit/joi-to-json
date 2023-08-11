@@ -38,6 +38,11 @@ module.exports = joi.object().keys({
       then: joi.number()
     }
   ]),
+  maleSpecific: joi.alternatives().conditional('gender', {
+    is: 'Male',
+    then: joi.string().not().empty().required(),
+    otherwise: joi.optional()
+  }),
   height: joi.link('#unit').shared(unitSchema),
   heightRank: joi.alternatives().conditional('height', {
     switch: [

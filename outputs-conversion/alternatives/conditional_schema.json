@@ -1,0 +1,22 @@
+{
+  "type": "alternatives",
+  "matches": [
+    {
+      "is": {
+        "type": "string"
+      },
+      "then": {
+        "type": "string",
+        "flags": {
+          "presence": "required"
+        }
+      },
+      "otherwise": {
+        "type": "any",
+        "flags": {
+          "presence": "optional"
+        }
+      }
+    }
+  ]
+}

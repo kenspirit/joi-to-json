@@ -265,7 +265,7 @@ const logicalOpParser: Joi2Json.LogicalOpParserOpts = {
 };
 
 parse(joi.string()); // Default call
-parse(joi.string(), 'json', {}, false); // Completely disable Logical Relation Operator
+parse(joi.string(), 'json', {}, { logicalOpParser: false }); // Completely disable Logical Relation Operator
 parse(joi.string(), 'open-api', {}, { logicalOpParser }); // Partially override Logical Relation Operator
 ```
 

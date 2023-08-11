@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "patterns": [
+    {
+      "regex": "/s/",
+      "rule": {
+        "type": "object",
+        "keys": {
+          "id": {
+            "type": "number",
+            "flags": {
+              "presence": "required"
+            }
+          },
+          "name": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "allow": [
+              "",
+              null
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

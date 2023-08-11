@@ -1,0 +1,97 @@
+{
+  "type": "alternatives",
+  "flags": {
+    "presence": "ignore"
+  },
+  "base": {
+    "type": "object",
+    "children": {
+      "key": {
+        "type": "string",
+        "invalids": [
+          ""
+        ]
+      }
+    }
+  },
+  "alternatives": [
+    {
+      "peek": {
+        "type": "object",
+        "flags": {
+          "allowUnknown": true
+        },
+        "children": {
+          "key": {
+            "type": "any",
+            "flags": {
+              "allowOnly": true
+            },
+            "valids": [
+              "xxx"
+            ]
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "children": {
+          "key": {
+            "type": "string",
+            "invalids": [
+              ""
+            ]
+          },
+          "key1": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      }
+    },
+    {
+      "peek": {
+        "type": "object",
+        "flags": {
+          "allowUnknown": true
+        },
+        "children": {
+          "key": {
+            "type": "any",
+            "flags": {
+              "allowOnly": true
+            },
+            "valids": [
+              "yyy"
+            ]
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "children": {
+          "key": {
+            "type": "string",
+            "invalids": [
+              ""
+            ]
+          },
+          "key2": {
+            "type": "string",
+            "flags": {
+              "presence": "required"
+            },
+            "invalids": [
+              ""
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

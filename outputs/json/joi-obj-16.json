@@ -154,6 +154,23 @@
           "type": "string",
           "format": "duration"
         },
+        "maleSpecific": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": [
+                "array",
+                "boolean",
+                "number",
+                "object",
+                "string",
+                "null"
+              ]
+            }
+          ]
+        },
         "birthday": {
           "type": "string",
           "format": "date-time"
