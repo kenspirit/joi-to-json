@@ -10,7 +10,9 @@
         "zh-CN",
         "en-US"
       ],
-      "deprecated": true
+      "deprecated": true,
+      "readOnly": false,
+      "writeOnly": true
     }
   ]
 }

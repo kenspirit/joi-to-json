@@ -6,12 +6,28 @@
   "matches": [
     {
       "schema": {
-        "type": "number"
+        "type": "number",
+        "rules": [
+          {
+            "args": {
+              "limit": 0
+            },
+            "name": "greater"
+          }
+        ]
       }
     },
     {
       "schema": {
-        "type": "string"
+        "type": "number",
+        "rules": [
+          {
+            "args": {
+              "limit": 100
+            },
+            "name": "less"
+          }
+        ]
       }
     }
   ]

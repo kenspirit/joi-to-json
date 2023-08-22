@@ -1,6 +1,6 @@
 {
   "name": "joi-to-json",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "description": "joi to JSON / OpenAPI Schema Converter",
   "main": "index.js",
   "repository": {
@@ -28,16 +28,17 @@
     "semver-compare": "^1.0.0"
   },
   "devDependencies": {
+    "@jest/transform": "^29.6.2",
     "ajv": "^8.12.0",
     "ajv-draft-04": "^1.0.0",
-    "eslint": "^8.31.0",
-    "jest": "^29.3.1",
+    "eslint": "^8.47.0",
+    "jest": "^29.6.2",
     "joi-12": "npm:@commercial/joi@^12.1.0",
     "joi-13": "npm:joi@^13.7.0",
     "joi-14": "npm:joi@^14.3.1",
     "joi-15": "npm:@hapi/joi@^15.1.1",
     "joi-16": "npm:@hapi/joi@^16.1.8",
-    "joi-17": "npm:joi@^17.6.0"
+    "joi-17": "npm:joi@^17.9.2"
   },
   "types": "index.d.ts",
   "files": [

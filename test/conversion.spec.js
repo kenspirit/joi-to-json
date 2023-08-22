@@ -1,7 +1,9 @@
+const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
 
 const convertors = fs.readdirSync(path.resolve(__dirname, '../lib/convertors'))
+const maxConvertorVersion = _.max(convertors)
 
 convertors.forEach((convertorFileName) => {
   const convertorVersion = convertorFileName.replace('.js', '')
@@ -29,12 +31,15 @@ convertors.forEach((convertorFileName) => {
 
       test(`Convertor ${convertorVersion}: ${fixtureFileName} - ${conversionCase}`, () => {
         const result = convertor.toBaseSpec(fixture[conversionCase].describe())
-        // Can write the expected result (Should be the latest convertor version as baseline)
 
-        // fs.writeFileSync(
-        //   path.resolve(__dirname, `../outputs-conversion/${fixtureFileName.replace(/\.js/, '')}/${conversionCase}`) + '.json',
-        //   JSON.stringify(result, null, 2)
-        // )
+        // Can write the expected result (Should be the latest convertor version as baseline)
+        if (convertorVersion === maxConvertorVersion && process.env.TEST_UPDATE_CONVERSION_BASELINE === 'true') {
+          fs.writeFileSync(
+            path.resolve(__dirname, `../outputs-conversion/${fixtureFileName.replace(/\.js/, '')}/${conversionCase}`) + '.json',
+            JSON.stringify(result, null, 2)
+          )
+        }
+
         const output = require(path.resolve(__dirname, `../outputs-conversion/${fixtureFileName.replace(/\.js/, '')}/${conversionCase}`))
         expect(result).toEqual(output)
       })

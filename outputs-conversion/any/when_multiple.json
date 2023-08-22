@@ -1,5 +1,13 @@
 {
   "type": "object",
+  "flags": {
+    "unknown": true
+  },
+  "metas": [
+    {
+      "if-style": false
+    }
+  ],
   "whens": [
     {
       "is": {
@@ -21,6 +29,9 @@
       },
       "then": {
         "type": "object",
+        "flags": {
+          "unknown": true
+        },
         "keys": {
           "key1": {
             "type": "string",
@@ -51,6 +62,9 @@
       },
       "then": {
         "type": "object",
+        "flags": {
+          "unknown": true
+        },
         "keys": {
           "key2": {
             "type": "string",

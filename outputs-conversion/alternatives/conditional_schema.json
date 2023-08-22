@@ -1,5 +1,10 @@
 {
   "type": "alternatives",
+  "metas": [
+    {
+      "if-style": false
+    }
+  ],
   "matches": [
     {
       "is": {
@@ -7,15 +12,21 @@
       },
       "then": {
         "type": "string",
-        "flags": {
-          "presence": "required"
-        }
+        "invalid": [
+          "",
+          null
+        ]
       },
       "otherwise": {
-        "type": "any",
-        "flags": {
-          "presence": "optional"
-        }
+        "type": "number",
+        "rules": [
+          {
+            "args": {
+              "limit": 0
+            },
+            "name": "greater"
+          }
+        ]
       }
     }
   ]

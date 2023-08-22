@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "inner": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

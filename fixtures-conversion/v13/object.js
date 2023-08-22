@@ -18,15 +18,16 @@ module.exports = function (joi) {
       'genderSpecific': joi.string(),
       'maleSpecific': joi.string()
     }).xor('genderSpecific', 'maleSpecific'),
-    with_without: joi.object().keys({
+    with: joi.object().keys({
+      'birthTime': joi.string(),
+      'birthday': joi.string()
+    }).with('birthTime', ['birthday']),
+    without: joi.object().keys({
       'readOnlyTrue': joi.string(),
       'readOnlyFalse': joi.string(),
       'writeOnlyTrue': joi.string(),
-      'writeOnlyFalse': joi.string(),
-      'birthTime': joi.string(),
-      'birthday': joi.string()
-    }).with('birthTime', ['birthday'])
-      .without('readOnlyTrue', ['writeOnlyTrue', 'writeOnlyFalse']),
+      'writeOnlyFalse': joi.string()
+    }).without('readOnlyTrue', ['writeOnlyTrue', 'writeOnlyFalse']),
     minMax: joi.object().min(4).max(12),
     pattern: joi.object()
       .pattern(/s/, joi.object().keys({

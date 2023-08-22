@@ -8,27 +8,19 @@ It's **The most powerful schema description language and data validator for Java
 Many times, we need to utilize this schema description to produce other output, such as Swagger OpenAPI doc.
 That is why I build [joi-route-to-swagger](https://github.com/kenspirit/joi-route-to-swagger) in the first place.
 
-At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  I believed there was reason.  Maybe joi did not provide the `describe` api way before.  But I always feel uncomfortable and think it's time to move on.
+At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  Maybe joi did not provide the `describe` api way before, but I always feel uncomfortable of relying on internal api.
 
 The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema](https://json-schema.org) using `describe` api.
 
-## 2.0.0 is out
+The implementation of this JOI to JSON conversion tool is simply a pipeline of two components:
 
-It's a breaking change.
+1. Convertors
+  - Each JOI version has one convertor implementation.
+  - It converts the `joi.describe()` output to the baseline format (currently the v16 and v17 one)
 
-* Functionally, output format supports OpenAPI Schema other than purely JSON Schema.  
-
-* Technically, implementation theory has a big change:
-  - In v1.0.0, it directly converts `joi.describe()` to JSON schema using different parser implementations.
-  - In v2.0.0, `joi.describe()` of different versions are first converted to one base format, the latest version of `joi.describe()` output.  Then different parsers (JSON, OpenAPI) all refer to this base format.
-
-* The benefits of the change are:
-  - Easier to retire old version of joi.
-  - Easier to support more output formats.
-
-## Installation
-
->npm install joi-to-json
+2. Parsers
+  - Each supported output JSON format (e.g. JSON Draft 07, OpenAPI) has one parser implementation.
+  - All parsers converts the baseline format into its own format
 
 
 ## Joi Version Support
@@ -42,11 +34,14 @@ It's a breaking change.
   * 15.1.1
   * 16.1.8
 * joi
-  * 17.4.2
+  * 17.9.2
 
-For all above versions, I have tested one complex joi object [fixtures](./fixtures) which covers most of the JSON schema attributes that can be described in joi schema.
+Although the versions chosen are the latest one for each major version, It should support other minor versions as well.
 
-Although the versions chosen are the latest one for each major version, I believe it should be supporting other minor version as well.
+
+## Installation
+
+>npm install joi-to-json
 
 
 ## Usage
@@ -55,11 +50,11 @@ Only one API `parse` is available.  It's signature is `parse(joiObj, type = 'jso
 
 Currently supported output types:  
 * `json` - Default.  Stands for JSON Schema Draft 07
-* `open-api` - Stands for OpenAPI Schema
+* `open-api` - Stands for OpenAPI 3.0 Schema - an extended subset of JSON Schema Specification Wright Draft 00 (aka Draft 5)
 * `json-draft-04` - Stands for JSON Schema Draft 04
 * `json-draft-2019-09` - Stands for JSON Schema Draft 2019-09
 
-The output schema format are in [outputs](./outputs) under specific folders for different types.
+The output schema format are in [outputs](./outputs-parsers) under specific folders for different types.
 
 Sample code is as below:  
 
@@ -95,7 +90,26 @@ const jsonSchema = parse(joiSchema)
 // const openApiSchema = parse(joiSchema, 'open-api')
 ```
 
-### Joi to OpenAPI
+## Features
+
+### Special Joi Operator Support
+
+* [Logical Relation Operator](./docs/logical_rel_support.md)
+
+### Named Link
+
+Supports named link for schema reuse, such as `.link('#person')`.  **For `open-api` conversion**, as the shared schemas are located in `#/components/schemas` which is not self-contained, the conversion result contains an **extra `schemas`** field so that you can extract it when required.
+
+### Conditional Expression
+
+Starting from Draft 7, JSON Specification supports `If-Then-Else` style expression.  Before that, we can also use something called [Implication](http://json-schema.org/understanding-json-schema/reference/conditionals.html#implication) using Schema Composition Approach to simulate that.
+
+By default, the `If-Then-Else` approach is used if the output spec supports it.  However, if the joi conditional expression (`alternatives` or `when`) is annotated using Meta `.meta({ 'if-style': true })`, the JSON schema conversion will use the Composition approach using `allOf` and/or `anyOf` instead.
+
+**Limitation**: Currently, if the joi condition definition is referring to another field, the `If-Then-Else` style output is not supported.  Instead, it simply uses the `anyOf` composing the `then` and `otherwise` on the defined field.
+
+
+## YAML File Generation
 
 Most Joi specifications result in the expected OpenAPI schema. 
 
@@ -196,7 +210,7 @@ properties:
     properties:
       key:
         type: string
-    additionalProperties: true    
+    additionalProperties: true
 additionalProperties: false
 ```
 
@@ -242,10 +256,6 @@ properties:
 additionalProperties: true
 ```
 
-## Special Joi Operator Support
-
-* [Logical Relation Operator](./docs/logical_rel_support.md)
-
 ## Browser support
 For generating JSON Schema in a browser you should use below import syntax for `joi` library in order to work because the `joi` browser minimized build does not have `describe` api which the `joi-to-json` relies on.
 
@@ -273,19 +283,50 @@ parse(joi.string(), 'open-api', {}, { logicalOpParser }); // Partially override 
 
 >npm run test
 
-You can optionally set below environment variables:
+### Categories of Test Cases
 
-* `CASE_PATTERN=joi-obj-17` to control which version of joi obj to test
+* JOI Standard Representation Conversion
+
+`fixtures-conversion` folder stores each JOI version's supported keyword for different data types.
+In case any data type or keyword is not supported in historical JOI version, we can just create customized file to override the `base` version, such as `v15/link.js`.
+
+Standard converted results are stored in `outputs-conversion` folder.
+
+`test/conversion.spec.js` Test Spec handles all supported JOI versions' conversion verificaiton.
+
+* JSON output format Conversion
+
+`outputs-parsers` folder stores different output formats base on the JOI Standard Representation in `outputs-conversion` folder.
+The Test Spec under `test/parser/` are responsible for these area.
+
+* JSON schema (Draft 07) Validity Unit Test
+
+For special **Logical Relation Operator** and **Conditional Expression**, some Unit Tests are created to verify the JOI Spec and corresponding JSON Spec are valid of the same verification intention.
+
+
+### Test Debug Approach
+
+When running `conversion.spec.js`, below environment variables can be set:
+
+* `TEST_CONVERTOR`: control which version of joi to test.
+  Example: `TEST_CONVERTOR=v17`
+* `TEST_CASE`: control which test cases to verify.  Name of the test cases is the key of the return object in `fixtures-conversion`.
+  Example: `TEST_CASE=conditional,match_all` verifies the case in `alternatives.js`
+* `TEST_UPDATE_CONVERSION_BASELINE`: control whether writes the baseline file generated from the latest-version convertor (Currently `v17`).
+  It is activated when setting to `true`.
+
+When runninng Test Spec under `test/parser`, below environment variables can be set:
+
+* `TEST_CASE`: control which test cases to verify.
+  For example, when running `json.spec.js`, and set `TEST_CASE=conditional,match_all`, it verifies the corresponding JSON files in `outputs-parsers/json/alternatives`.
+* `TEST_UPDATE_PARSER_BASELINE`: control whether writes the baseline file for the corresponding parser.
+  It is activated when setting to `true`.  For example, when running `json.spec.js`, it writes the baseline files under `outputs-parsers/json`.
+
 
 ## Known Limitation
 
 * For `object.pattern` usage in Joi, `pattern` parameter can only be a regular expression now as I cannot convert Joi object to regex yet.
-
-## Updates
-
-**Version 2.3.0**
-
-* Supports named link for schema resuse, such as `.link('#person')`.  **For `open-api` conversion**, as the shared schemas are located in `#/components/schemas` which is not self-contained, the conversion result contains an **extra `schemas`** field so that you can extract it when required.
+* `If-Then-Else` style output is not applicable for the condition referring to the other field.
 
 ## License
 

@@ -2,13 +2,13 @@ module.exports = function (joi) {
   return {
     conditional: joi.alternatives().conditional('gender', {
       is: 'Male',
-      then: joi.string().not().empty().required(),
-      otherwise: joi.optional()
+      then: joi.string().not('', null),
+      otherwise: joi.number().greater(0)
     }),
     conditional_schema: joi.alternatives().conditional(joi.string(), {
-      then: joi.string().not().empty().required(),
-      otherwise: joi.optional()
-    }),
+      then: joi.string().not('', null),
+      otherwise: joi.number().greater(0)
+    }).meta({ 'if-style': false }),
     conditional_switch: joi.alternatives().conditional('height', {
       switch: [
         { is: 0, then: joi.link('#unifiedString') },
@@ -17,7 +17,7 @@ module.exports = function (joi) {
       ]
     }),
     match_any: joi.alternatives().try(joi.number(), joi.string()),
-    match_all: joi.alternatives().try(joi.number(), joi.string()).match('all'),
+    match_all: joi.alternatives().try(joi.number().greater(0), joi.number().less(100)).match('all'),
     match_one: joi.alternatives().try(joi.number(), joi.string()).match('one')
   }
 }
