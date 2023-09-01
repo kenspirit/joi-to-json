@@ -6,7 +6,7 @@ module.exports = function (joi) {
     example: joi.any().example('鹄思乱想'),
     forbidden: joi.forbidden(),
     id: joi.any().id('person'),
-    meta: joi.any().meta({ 'x-expandable': true, 'x-lookup': 'name', 'z-ignore': true, format: 'custom_format', 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true, readOnly: false, writeOnly: true }),
+    meta: joi.any().meta({ 'x-expandable': true, 'x-lookup': 'name', 'z-ignore': true, format: 'custom_format', 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true, readOnly: false, writeOnly: true, title: 'This is title' }),
     shared: joi.any().shared(joi.string().id('unifiedString')),
     valid: joi.any().valid('Male', 'Female', 0, 1, '', null),
     when_multiple: joi.object().keys({

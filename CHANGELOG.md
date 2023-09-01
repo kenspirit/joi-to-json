@@ -1,3 +1,8 @@
+### 4.0.1
+
+- Fixes
+  * Missing support on `title` in meta
+
 ### 4.0.0
 
 [BREAKING]

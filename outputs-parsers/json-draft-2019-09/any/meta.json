@@ -10,5 +10,6 @@
   "deprecated": true,
   "readOnly": false,
   "writeOnly": true,
+  "title": "This is title",
   "format": "custom_format"
 }

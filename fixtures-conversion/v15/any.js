@@ -5,7 +5,7 @@ module.exports = function(joi) {
     description: joi.any().description('Hero Nickname'),
     example: joi.any().example(['鹄思乱想', { parent: { sibling: 10 } }]),
     forbidden: joi.forbidden(),
-    meta: joi.any().meta({ 'x-expandable': true, 'x-lookup': 'name', 'z-ignore': true, format: 'custom_format', 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true, readOnly: false, writeOnly: true }),
+    meta: joi.any().meta({ 'x-expandable': true, 'x-lookup': 'name', 'z-ignore': true, format: 'custom_format', 'x-supported-lang': ['zh-CN', 'en-US'], deprecated: true, readOnly: false, writeOnly: true, title: 'This is title' }),
     valid: joi.any().valid('Male', 'Female', 0, 1, '', null),
     when_multiple: joi.object().keys({
       key: joi.string()

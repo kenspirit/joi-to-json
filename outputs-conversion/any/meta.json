@@ -12,7 +12,8 @@
       ],
       "deprecated": true,
       "readOnly": false,
-      "writeOnly": true
+      "writeOnly": true,
+      "title": "This is title"
     }
   ]
 }
