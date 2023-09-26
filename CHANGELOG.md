@@ -1,3 +1,9 @@
+### 4.1.0
+
+- Added Features
+  * Adds option `includeSchemaDialect` to enable including `$schema` in schema output. (#46)
+  * Adds `exclusiveMaximum/exclusiveMinimum` to `negateive/positive` number type schema. (#47)
+
 ### 4.0.1
 
 - Fixes
