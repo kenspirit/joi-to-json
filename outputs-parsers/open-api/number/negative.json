@@ -1,3 +1,5 @@
 {
-  "type": "number"
+  "type": "number",
+  "exclusiveMaximum": true,
+  "maximum": 0
 }
