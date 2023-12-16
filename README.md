@@ -46,9 +46,12 @@ Although the versions chosen are the latest one for each major version, It shoul
 
 ## Usage
 
-Only one API `parse` is available.  Its signature is `parse(joiObj, type = 'json', definitions = {}, parserOptions = {})`
+Only one API `parse` is available.
 
-Currently supported output types:  
+Its signature is `parse(joiObj, type = 'json', definitions = {}, parserOptions = {})`
+
+### Output Type
+
 * `json` - Default.  Stands for JSON Schema Draft 07
 * `open-api` - Stands for OpenAPI 3.0 Schema - an extended subset of JSON Schema Specification Wright Draft 00 (aka Draft 5)
 * `open-api-3.1` - Stands for OpenAPI 3.1 Schema - a superset of JSON Schema Specification Draft 2020-12
@@ -91,9 +94,13 @@ const jsonSchema = parse(joiSchema)
 // const openApiSchema = parse(joiSchema, 'open-api')
 ```
 
+### definitions
+
+This should be a JSON object containing all schemas referenced by the `joiObj` definition.  It's useful if **Named Link** case is used but the referenced schemas are provided externally.  This object uses the schema id as key and schema itself as value.
+
 ### parserOptions
-* `includeSchemaDialect`: Default to be `false`.  `true` makes the parsed schema containing `$schema` field automatically.
-  Value of the `$schema` is default for different output JSON format if it's not provided in options together.
+
+* `includeSchemaDialect`: Default to be `false`.  `true` makes the parsed schema containing `$schema` field automatically.  Value of the `$schema` is default for different output JSON format if it's not provided in options together.
 * `logicalOpParser`: Refer to **Special Joi Operator Support** below for detail usage.
 
 ## Features
@@ -110,7 +117,7 @@ Supports named link for schema reuse, such as `.link('#person')`.  **For `open-a
 
 Starting from Draft 7, JSON Specification supports `If-Then-Else` style expression.  Before that, we can also use something called [Implication](http://json-schema.org/understanding-json-schema/reference/conditionals.html#implication) using Schema Composition Approach to simulate that.
 
-By default, the `If-Then-Else` approach is used if the output spec supports it.  However, if the joi conditional expression (`alternatives` or `when`) is annotated using Meta `.meta({ 'if-style': true })`, the JSON schema conversion will use the Composition approach using `allOf` and/or `anyOf` instead.
+By default, the `If-Then-Else` approach is used if the output spec supports it.  However, if the joi conditional expression (`alternatives` or `when`) is annotated using Meta `.meta({ 'if-style': false })`, the JSON schema conversion will use the Composition approach using `allOf` and/or `anyOf` instead.
 
 **Limitation**: Currently, if the joi condition definition is referring to another field, the `If-Then-Else` style output is not supported.  Instead, it simply uses the `anyOf` composing the `then` and `otherwise` on the defined field.
 
