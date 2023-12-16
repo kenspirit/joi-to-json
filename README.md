@@ -46,7 +46,7 @@ Although the versions chosen are the latest one for each major version, It shoul
 
 ## Usage
 
-Only one API `parse` is available.  It's signature is `parse(joiObj, type = 'json')`
+Only one API `parse` is available.  Its signature is `parse(joiObj, type = 'json', definitions = {}, parserOptions = {})`
 
 Currently supported output types:  
 * `json` - Default.  Stands for JSON Schema Draft 07
@@ -90,6 +90,11 @@ const jsonSchema = parse(joiSchema)
 // Or parsing to OpenAPI schema through:
 // const openApiSchema = parse(joiSchema, 'open-api')
 ```
+
+### parserOptions
+* `includeSchemaDialect`: Default to be `false`.  `true` makes the parsed schema containing `$schema` field automatically.
+  Value of the `$schema` is default for different output JSON format if it's not provided in options together.
+* `logicalOpParser`: Refer to **Special Joi Operator Support** below for detail usage.
 
 ## Features
 
