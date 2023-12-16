@@ -32,7 +32,6 @@ function executeTests(outputType, ajv = new Ajv({ allErrors: true })) {
             JSON.stringify(destSchema, null, 2)
           )
         }
-        expect(destSchema).toEqual(expected)
 
         // Safety net in case the expected output is not compatible to json schema
         const validationResult = ajv.validateSchema(destSchema)
@@ -40,6 +39,8 @@ function executeTests(outputType, ajv = new Ajv({ allErrors: true })) {
           console.error(`${outputType} schema validation failed on case: ${joiType} - ${joiCase}`, JSON.stringify(ajv.errors, null, 2))
         }
         expect(validationResult).toBeTruthy()
+
+        expect(destSchema).toEqual(expected)
       })
     })
   })
