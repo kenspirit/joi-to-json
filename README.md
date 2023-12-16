@@ -51,6 +51,7 @@ Only one API `parse` is available.  It's signature is `parse(joiObj, type = 'jso
 Currently supported output types:  
 * `json` - Default.  Stands for JSON Schema Draft 07
 * `open-api` - Stands for OpenAPI 3.0 Schema - an extended subset of JSON Schema Specification Wright Draft 00 (aka Draft 5)
+* `open-api-3.1` - Stands for OpenAPI 3.1 Schema - a superset of JSON Schema Specification Draft 2020-12
 * `json-draft-04` - Stands for JSON Schema Draft 04
 * `json-draft-2019-09` - Stands for JSON Schema Draft 2019-09
 

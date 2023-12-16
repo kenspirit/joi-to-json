@@ -9,6 +9,7 @@ const c12 = require('./lib/convertors/v12')
 
 const JoiJsonSchemaParser = require('./lib/parsers/json')
 const JoiOpenApiSchemaParser = require('./lib/parsers/open-api')
+const JoiOpenApiThreePointOneSchemaParser = require('./lib/parsers/open-api-3.1')
 const JoiJsonDraftSchemaParser19 = require('./lib/parsers/json-draft-2019-09')
 const JoiJsonDraftSchemaParser = require('./lib/parsers/json-draft-04')
 
@@ -19,7 +20,8 @@ const parsers = {
   'json-draft-2019-09': JoiJsonDraftSchemaParser19,
   'json-draft-04': JoiJsonDraftSchemaParser,
   json: JoiJsonSchemaParser,
-  'open-api': JoiOpenApiSchemaParser
+  'open-api': JoiOpenApiSchemaParser,
+  'open-api-3.1': JoiOpenApiThreePointOneSchemaParser
 }
 
 function parse(joiObj, type = 'json', definitions = {}, parserOptions = {}) {

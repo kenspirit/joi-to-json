@@ -1,3 +1,11 @@
+### 4.2.0
+
+- Added Features
+  * Adds 'open-api-3.1' format support.
+
+- Fixes
+  * Change type to be 'integer' instead of 'number' if it's const (#50)
+
 ### 4.1.0
 
 - Added Features
