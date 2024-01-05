@@ -1,3 +1,8 @@
+### 4.2.1
+
+- Fixes
+  * Conversion of multiple .shared() produces invalid schema (#51)
+
 ### 4.2.0
 
 - Added Features
