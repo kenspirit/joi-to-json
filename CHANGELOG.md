@@ -1,3 +1,8 @@
+### 4.3.0
+
+- Added Features
+  * Copy meta properties to the referenced schema itself
+
 ### 4.2.1
 
 - Fixes
