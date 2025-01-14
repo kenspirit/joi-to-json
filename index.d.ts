@@ -3,7 +3,7 @@ import Joi from 'joi-17';
 /**
  * @type {string}
  */
-export type Mode = 'json' | 'open-api' | 'json-draft-2019-09' | 'json-draft-04';
+export type Mode = 'json' | 'open-api' | 'open-api-3.1' | 'json-draft-2019-09' | 'json-draft-04';
 
 /**
  * The parser function modifies the schema in-place.
