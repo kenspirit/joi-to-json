@@ -24,6 +24,17 @@
           }
         }
       }
+    },
+    {
+      "regex": "/a/",
+      "rule": {
+        "type": "array",
+        "items": [
+          {
+            "type": "string"
+          }
+        ]
+      }
     }
   ]
 }

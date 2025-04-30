@@ -38,7 +38,8 @@ module.exports = function (joi) {
           .string()
           .allow('', null)
           .required()
-      })),
+      }))
+      .pattern(/a/, joi.array().items(joi.string())),
     unknown_false: joi.object().unknown(false),
     unknown_true: joi.object().unknown(true)
   }

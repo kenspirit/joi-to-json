@@ -17,6 +17,12 @@
         "name"
       ],
       "additionalProperties": false
+    },
+    "/a/": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "additionalProperties": false
