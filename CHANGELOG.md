@@ -1,3 +1,13 @@
+### 4.3.2
+
+- Fixes
+  * Allow schemas other than objects in pattern properties (#56)
+
+### 4.3.1
+
+- Fixes
+  * Add 'open-api-3.1' in .d.ts Model type (#54)
+
 ### 4.3.0
 
 - Added Features
