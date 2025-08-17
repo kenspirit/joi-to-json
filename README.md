@@ -10,31 +10,16 @@ That is why I build [joi-route-to-swagger](https://github.com/kenspirit/joi-rout
 
 At the beginning, `joi-route-to-swagger` relies on [joi-to-json-schema](https://github.com/lightsofapollo/joi-to-json-schema/) which utilizes many joi internal api or properties.  Maybe joi did not provide the `describe` api way before, but I always feel uncomfortable of relying on internal api.
 
-The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema](https://json-schema.org) using `describe` api.
-
-The implementation of this JOI to JSON conversion tool is simply a pipeline of two components:
-
-1. Convertors
-  - Each JOI version has one convertor implementation.
-  - It converts the `joi.describe()` output to the baseline format (currently the v16 and v17 one)
-
-2. Parsers
+The intention of `joi-to-json` is to support converting different version's joi schema to [JSON Schema](https://json-schema.org) using `describe` api, the baseline format.
   - Each supported output JSON format (e.g. JSON Draft 07, OpenAPI) has one parser implementation.
   - All parsers converts the baseline format into its own format
 
 
 ## Joi Version Support
 
-* @commercial/joi
-  * v12.1.0
 * joi
-  * 13.7.0
-  * 14.3.1
-* @hapi/joi
-  * 15.1.1
-  * 16.1.8
-* joi
-  * 17.9.2
+  * 17.13.3
+  * 18.0.0
 
 Although the versions chosen are the latest one for each major version, It should support other minor versions as well.
 
@@ -300,16 +285,13 @@ parse(joi.string(), 'open-api', {}, { logicalOpParser }); // Partially override 
 
 * JOI Standard Representation Conversion
 
-`fixtures-conversion` folder stores each JOI version's supported keyword for different data types.
-In case any data type or keyword is not supported in historical JOI version, we can just create customized file to override the `base` version, such as `v15/link.js`.
-
-Standard converted results are stored in `outputs-conversion` folder.
-
-`test/conversion.spec.js` Test Spec handles all supported JOI versions' conversion verificaiton.
+`fixtures-baseline` folder stores JOI schema definition for different data types.
+`outputs-baseline` folder stores expected output for `describe()` api for schemas in `fixtures-baseline` folder.
+`test/conversion.spec.js` Test Spec verifies expected output for `describe()` api for schemas in `fixtures-baseline` folder.
 
 * JSON output format Conversion
 
-`outputs-parsers` folder stores different output formats base on the JOI Standard Representation in `outputs-conversion` folder.
+`outputs-parsers` folder stores different output formats base on the JOI Standard Representation in `outputs-baseline` folder.
 The Test Spec under `test/parser/` are responsible for these area.
 
 * JSON schema (Draft 07) Validity Unit Test
@@ -321,12 +303,8 @@ For special **Logical Relation Operator** and **Conditional Expression**, some U
 
 When running `conversion.spec.js`, below environment variables can be set:
 
-* `TEST_CONVERTOR`: control which version of joi to test.
-  Example: `TEST_CONVERTOR=v17`
-* `TEST_CASE`: control which test cases to verify.  Name of the test cases is the key of the return object in `fixtures-conversion`.
+* `TEST_CASE`: control which test cases to verify.  Name of the test cases is the key of the return object in `fixtures-baseline`.
   Example: `TEST_CASE=conditional,match_all` verifies the case in `alternatives.js`
-* `TEST_UPDATE_CONVERSION_BASELINE`: control whether writes the baseline file generated from the latest-version convertor (Currently `v17`).
-  It is activated when setting to `true`.
 
 When runninng Test Spec under `test/parser`, below environment variables can be set:
 

@@ -15,7 +15,13 @@ module.exports = function (joi) {
       key: joi.string()
     }),
     unknown_override: joiAllowUnknown.object().keys({
-      inner: joiAllowUnknown.object().unknown(false)
+      inner: joiAllowUnknown.object().keys({
+        a: joi.string(),
+        innerMost: joi.object().keys({
+          c: joi.string(),
+          d: joi.string()
+        })
+      }).unknown(false)
     })
   }
 }

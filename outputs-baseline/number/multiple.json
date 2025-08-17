@@ -4,7 +4,9 @@
     {
       "name": "multiple",
       "args": {
-        "base": 10
+        "base": 10,
+        "baseDecimalPlace": 0,
+        "pfactor": 1
       }
     }
   ]

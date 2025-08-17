@@ -1,4 +1,4 @@
-const Joi = require('joi-17')
+const Joi = require('joi')
 const parse = require('../../index')
 
 test('Multiple shared schemas should be included correctly.', () => {

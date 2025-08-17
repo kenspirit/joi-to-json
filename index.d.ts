@@ -1,4 +1,4 @@
-import Joi from 'joi-17';
+import Joi from 'joi';
 
 /**
  * @type {string}
@@ -20,7 +20,7 @@ export interface LogicalOpParserOpts {
   oxor?: LogicalOpParserFn,
   with?: LogicalOpParserFn,
   without?: LogicalOpParserFn
-};
+}
 
 export type ParserOptions = false | { logicalOpParser?: LogicalOpParserOpts };
 

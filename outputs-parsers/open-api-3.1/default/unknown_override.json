@@ -3,8 +3,24 @@
   "properties": {
     "inner": {
       "type": "object",
-      "properties": {},
-      "additionalProperties": true
+      "properties": {
+        "a": {
+          "type": "string"
+        },
+        "innerMost": {
+          "type": "object",
+          "properties": {
+            "c": {
+              "type": "string"
+            },
+            "d": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": true

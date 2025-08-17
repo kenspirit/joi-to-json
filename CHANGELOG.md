@@ -1,3 +1,10 @@
+### 5.0.0
+
+[BREAKING]
+
+Remove support for all historical JOI versions.  Only support for JOI 17.x and above.
+
+
 ### 4.3.2
 
 - Fixes

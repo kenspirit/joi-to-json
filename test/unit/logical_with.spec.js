@@ -1,4 +1,4 @@
-const joi = require('joi-17')
+const joi = require('joi')
 const Ajv = require('ajv/dist/2019')
 const parse = require('../../index')
 

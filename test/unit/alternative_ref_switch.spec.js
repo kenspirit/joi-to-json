@@ -1,4 +1,4 @@
-const joi = require('joi-17')
+const joi = require('joi')
 const Ajv = require('ajv')
 const parse = require('../../index')
 

@@ -1,27 +1,33 @@
 {
   "type": "object",
-  "properties": {
+  "preferences": {
+    "allowUnknown": true
+  },
+  "keys": {
     "inner": {
       "type": "object",
-      "properties": {
+      "flags": {
+        "unknown": false
+      },
+      "keys": {
         "a": {
           "type": "string"
         },
         "innerMost": {
           "type": "object",
-          "properties": {
+          "keys": {
             "c": {
               "type": "string"
             },
             "d": {
               "type": "string"
             }
-          },
-          "additionalProperties": true
+          }
         }
       },
-      "additionalProperties": false
+      "preferences": {
+        "allowUnknown": true
+      }
     }
-  },
-  "additionalProperties": true
+  }
 }
