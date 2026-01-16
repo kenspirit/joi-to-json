@@ -8,7 +8,7 @@ module.exports = function (joi) {
     conditional_schema: joi.alternatives().conditional(joi.string(), {
       then: joi.string().not('', null),
       otherwise: joi.number().greater(0)
-    }).meta({ 'if-style': false }),
+    }).meta({ 'if-style': false }).meta({ 'x-custom': 'test' }),
     conditional_switch: joi.alternatives().conditional('height', {
       switch: [
         { is: 0, then: joi.link('#unifiedString') },
