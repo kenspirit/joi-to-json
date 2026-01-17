@@ -1,3 +1,9 @@
+### 5.0.1
+
+- Fixes
+  * Fix removal of metas from joi.alternatives().conditional (#58)
+
+
 ### 5.0.0
 
 [BREAKING]
