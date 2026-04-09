@@ -1,3 +1,8 @@
+### 5.0.2
+
+- Fixes
+  * No need to set object type when constructing not schema based on joi.invalid
+
 ### 5.0.1
 
 - Fixes
