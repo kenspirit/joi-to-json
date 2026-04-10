@@ -1,3 +1,8 @@
+### 5.0.3
+
+- Fixes
+  * For open-api format, examples should be removed and retain example field
+
 ### 5.0.2
 
 - Fixes
