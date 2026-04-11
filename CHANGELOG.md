@@ -1,3 +1,8 @@
+### 5.0.4
+
+- Fixes
+  * For open-api format, unknown keys could be retained on the referenced schema with id, such as patternProperties
+
 ### 5.0.3
 
 - Fixes
