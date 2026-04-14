@@ -1,3 +1,8 @@
+### 5.0.5
+
+- Fixes
+  * For open-api 3.0 format, `nullable` existence must be with `type`.  Set type to `object` if schema only have `null` type which open-api 3.0 not supported.
+
 ### 5.0.4
 
 - Fixes
