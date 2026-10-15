@@ -1,6 +1,6 @@
 {
   "name": "joi-to-json",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "joi to JSON / OpenAPI Schema Converter",
   "main": "index.js",
   "repository": {
@@ -32,7 +32,7 @@
     "ajv-draft-04": "^1.0.0",
     "eslint": "^9.33.0",
     "jest": "^30.0.5",
-    "joi": "18.0.0",
+    "joi": "18.2.9",
     "typescript": "^5.9.2"
   },
   "types": "index.d.ts",

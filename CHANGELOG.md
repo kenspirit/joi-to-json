@@ -1,3 +1,9 @@
+### 5.0.6
+
+- Change
+  * Upgrade joi version
+
+
 ### 5.0.5
 
 - Fixes
